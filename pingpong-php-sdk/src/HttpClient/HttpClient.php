@@ -7,14 +7,35 @@ use mysql_xdevapi\Exception;
 
 class HttpClient
 {
-    private $client;
+    private \GuzzleHttp\Client $client;
 
-    private $BASE_URL = "https://mediamagic.dev";
+    private string $BASE_URL = "https://mediamagic.dev";
+
+    private string $API_KEY;
 
     function __construct() {
         $this->client = new GuzzleHttp\Client([
             'base_uri' => $this->BASE_URL,
         ]);
+    }
+
+    private function postRequestOpts(Mappable $body): array
+    {
+        return [
+            GuzzleHttp\RequestOptions::JSON => $body->toMap(),
+            GuzzleHttp\RequestOptions::HEADERS => [
+                'x-mediamagic-key' => $this->API_KEY,
+            ]
+        ];
+    }
+
+    private function getRequestOpts(): array
+    {
+        return [
+            GuzzleHttp\RequestOptions::HEADERS => [
+                'x-mediamagic-key' => $this->API_KEY,
+            ]
+        ];
     }
 
     /**
@@ -23,9 +44,7 @@ class HttpClient
     function post(string $path, Mappable $body): array
     {
         try {
-            $response = $this->client->post($path, [
-                GuzzleHttp\RequestOptions::JSON => $body->toMap(),
-            ]);
+            $response = $this->client->post($path, $this->postRequestOpts($body));
 
             if ($response->getStatusCode() > 399) {
                 throw new \Exception("request failed with status: " + $response->getStatusCode());
@@ -42,7 +61,7 @@ class HttpClient
      */
     function get(string $path): array {
         try {
-            $response = $this->client->get($path);
+            $response = $this->client->get($path, $this->getRequestOpts());
 
             if ($response->getStatusCode() > 399) {
                 throw new \Exception("request failed with status: "  + $response->getStatusCode());
