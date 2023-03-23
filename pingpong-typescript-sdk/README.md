@@ -6,15 +6,15 @@ PingPong Typescript SDK
 
 ```typescript 
 
-import OneUp from '@pingpong/typescript-sdk';
+import PingPong from '@pingpongai/typescript-sdk';
 
-const oneup = new OneUp('<your-api-key>');
+const pingpong = new PingPong('<your-api-key>');
 
-const models = oneup.models.list();
+const models = pingpong.models.list();
 
-const model = oneup.models.getById('<model-id>');
+const model = pingpong.models.getById('<model-id>');
 
-const deployment = oneup.deployments.create({
+const deployment = pingpong.deployments.create({
     name: 'test',
     model_id: model.id,
     args: {

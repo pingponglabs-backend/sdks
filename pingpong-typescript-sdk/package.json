@@ -1,7 +1,7 @@
 {
-  "name": "pingpong-typescript-sdk",
+  "name": "@pingpongai/typescript-sdk",
   "version": "1.0.0",
-  "description": "PingPong Typescript SDK",
+  "description": "PingPongAI Typescript SDK",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
