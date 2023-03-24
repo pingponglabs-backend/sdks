@@ -31,10 +31,20 @@ func (c *Client) List() ([]Deployment, error) {
 	return deployments, nil
 }
 
-func (c *Client) Create(deployment CreateDeployment) ([]byte, error) {
-	body, err := deployment.MarshalJSON()
+func (c *Client) Create(deployment CreateDeployment) (*Deployment, error) {
+	body, err := json.Marshal(deployment)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to marshal deployment body")
 	}
-	return c.httpClient.Post("/deployments", bytes.NewReader(body))
+	response, err := c.httpClient.Post("/api/v1/deployments", bytes.NewReader(body))
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to create deployment")
+	}
+
+	var deploymentResponse *Deployment
+	if err := json.Unmarshal(response, &deploymentResponse); err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshal deployment response")
+	}
+
+	return deploymentResponse, nil
 }
