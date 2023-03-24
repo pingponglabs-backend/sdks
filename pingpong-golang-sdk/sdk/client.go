@@ -11,8 +11,8 @@ type Client struct {
 	deployments *deployments.Client
 }
 
-func NewClient() *Client {
-	httpTransport := http.New()
+func NewClient(apiKey string) *Client {
+	httpTransport := http.New(apiKey)
 	return &Client{
 		models:      models.NewClient(httpTransport),
 		deployments: deployments.NewClient(httpTransport),
