@@ -6,7 +6,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class Models
 {
-    private $client;
+    private \PingPong\HttpClient\HttpClient $client;
 
     function __construct(\PingPong\HttpClient\HttpClient $client)
     {
@@ -19,9 +19,10 @@ class Models
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
+     * @throws GuzzleException
      */
-    public function getModels(): Model
+    public function list(): Model
     {
         $response = $this->client->get('api/v1/models');
 
@@ -31,9 +32,9 @@ class Models
     /**
      * @throws GuzzleException
      */
-    public function getModelById(string $id): Model
+    public function getById(string $id): Model
     {
-        $response = $this->client->get('api/v1/models/'+$id);
+        $response = $this->client->get('api/v1/models/' . $id);
 
         return $this->modelFactory($response);
     }

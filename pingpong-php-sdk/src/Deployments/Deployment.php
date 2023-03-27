@@ -2,14 +2,10 @@
 
 namespace PingPong\Deployments;
 
-class Deployment {
-    public $name;
-    public $model_id;
-    public $job;
+readonly class Deployment {
 
-    public function __construct($name, $model_id, Job $job) {
-        $this->name = $name;
-        $this->model_id = $model_id;
-        $this->job = $job;
-    }
+    public function __construct(
+        public string $name,
+        public string $model_id,
+        public Job $job) {}
 }

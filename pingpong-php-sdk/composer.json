@@ -1,5 +1,5 @@
 {
-  "name": "pingpong/pingpong-php-sdk",
+  "name": "pingpongai/pingpongai-php-sdk",
   "description": "PHP SDK for the PingPong AI Platform",
   "minimum-stability": "stable",
   "license": "proprietary",

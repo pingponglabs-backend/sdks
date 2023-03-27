@@ -2,34 +2,50 @@
 
 namespace PingPong\Deployments;
 
+use Exception;
+use GuzzleHttp\Exception\GuzzleException;
+
 class Deployments
 {
-    private $client;
+    private \PingPong\HttpClient\HttpClient $client;
 
     function __construct(\PingPong\HttpClient\HttpClient $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * @throws Exception
+     */
     private function deploymentFactory(array $response): Deployment
     {
-        return new Deployment($response['name'], $response['model_id'], $response['job']);
+        $j = $response['job'];
+
+        if (empty($j)) {
+            throw new Exception('Job is empty');
+        }
+
+        $job = new Job($j['files'], $j['credits_used']);
+        return new Deployment($response['name'], $response['model_id'], $job);
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception|GuzzleException
      */
-    public function createDeployment(DeploymentInput $deployment): \Psr\Http\Message\StreamInterface
+    public function create(DeploymentInput $deployment): Deployment
     {
         $response = $this->client->post("api/v1/deployments", $deployment);
 
         return $this->deploymentFactory($response);
-
     }
 
-    public function getDeploymentById(string $id): \Psr\Http\Message\StreamInterface
+    /**
+     * @throws GuzzleException
+     * @throws Exception
+     */
+    public function getById(string $id): Deployment
     {
-        $response = $this->client->get('api/v1/deployments/'+id);
+        $response = $this->client->get('api/v1/deployments/' . $id);
 
         return $this->deploymentFactory($response);
     }

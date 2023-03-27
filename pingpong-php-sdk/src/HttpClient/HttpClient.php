@@ -13,7 +13,8 @@ class HttpClient
 
     private string $API_KEY;
 
-    function __construct() {
+    function __construct(string $apiKey) {
+        $this->API_KEY = $apiKey;
         $this->client = new GuzzleHttp\Client([
             'base_uri' => $this->BASE_URL,
         ]);
