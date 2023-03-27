@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\TestCase;
 use PingPong\Deployments\Deployment;
 use PingPong\Deployments\Deployments;
@@ -32,11 +33,14 @@ class DeploymentsTest extends TestCase
 
         $this->assertInstanceOf(Deployment::class, $deployment);
         $this->assertEquals('deployment_name', $deployment->name);
-        $this->assertEquals('model_id', $deployment->model_id);
+        $this->assertEquals('model_id', $deployment->modelId);
         $this->assertEquals('test.jpg', $deployment->job->files[0]);
-        $this->assertEquals(1, $deployment->job->credits_used);
+        $this->assertEquals(1, $deployment->job->creditsUsed);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function testGetById()
     {
         $httpClient = $this->createMock(HttpClient::class);
@@ -61,6 +65,6 @@ class DeploymentsTest extends TestCase
 
         $this->assertInstanceOf(Deployment::class, $deployment);
         $this->assertEquals('deployment_name', $deployment->name);
-        $this->assertEquals('model_id', $deployment->model_id);
+        $this->assertEquals('model_id', $deployment->modelId);
     }
 }

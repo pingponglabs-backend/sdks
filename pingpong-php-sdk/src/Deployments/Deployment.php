@@ -6,6 +6,6 @@ readonly class Deployment {
 
     public function __construct(
         public string $name,
-        public string $model_id,
+        public string $modelId,
         public Job $job) {}
 }
