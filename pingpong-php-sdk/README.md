@@ -14,10 +14,10 @@ $model = $client->models->getById($id);
 
 $deployment = $client->deployments->create(new \PingPong\Deployments\DeploymentInput(
     'my-deployment',
-    $model->getId(),
+    $model->id,
     'input_image_file' => '<url>/my-file.jpg'
 ));
 
-print($deployment->getJob()->getCreditsUsed());
+print($deployment->job->creditsUsed);
 
 ```

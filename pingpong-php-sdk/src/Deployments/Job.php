@@ -6,6 +6,6 @@ readonly class Job
 {
     public function __construct(
         public array $files = [],
-        public int $credits_used = 0,
+        public int $creditsUsed = 0,
     ) {}
 }
