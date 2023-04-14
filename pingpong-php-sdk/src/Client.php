@@ -19,7 +19,7 @@ class Client
 
     private \PingPong\HttpClient\HttpClient $client;
 
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey = getenv('X_PINGPONG_KEY'))
     {
         $this->client = new HttpClient();
 
