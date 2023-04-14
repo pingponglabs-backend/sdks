@@ -25,7 +25,7 @@ func main() {
 		Args: map[string]interface{}{
 			"input_image_file": "https://cdn.mediamagic.dev/media/c7dbd266-3aa3-11ed-8e27-e679ed67c206.jpeg",
 		},
-		ModelID: "4954c9fd-7fc2-4d4c-a036-f23f7605fa69",
+		Model: "pingpongai/recommender",
 	})
 	if err != nil {
 		panic(err)
