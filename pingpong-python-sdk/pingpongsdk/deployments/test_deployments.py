@@ -12,7 +12,7 @@ def test_can_create_deployment():
     deployment_client = Deployments(api_key=_API_KEY)
     deployment = deployment_client.create(deployment=CreateDeployment(
         name="test-deployment",
-        model_id="4954c9fd-7fc2-4d4c-a036-f23f7605fa69",
+        model="pingponai/background-removal",
         args={
             'input_image_file': 'https://cdn.mediamagic.dev/media/eb341446-be53-11ed-b4a8-66139910f724.jpg',
         },

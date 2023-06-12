@@ -4,7 +4,7 @@ from .deployments.deployments import Deployments
 from .models.models import Models
 
 
-_API_KEY = os.getenv('X_MEDIAMAGIC_KEY')
+_API_KEY = os.getenv('X_PINGPONG_KEY')
 
 
 class PingPong():
@@ -19,4 +19,4 @@ class PingPong():
 
     def __init__(self, api_key=_API_KEY):
         self.models = Models(api_key=api_key)
-        self.deployments = Deployments(api_key=api_key)
+        self.deployments = Deployments(api_key=api_key, models=self.models)

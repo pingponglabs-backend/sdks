@@ -11,6 +11,7 @@ def dto(m: list) -> Model:
         args=m.get('args'),
         video=m.get('video'),
         example_outputs=m.get('example_outputs'),
+        alias=m.get('alias'),
     )
 
 
@@ -36,3 +37,15 @@ class Models(Client):
         """
         model = super().get("/api/v1/models/%s" % id)
         return dto(model)
+
+    def get_by_alias(self, alias: str):
+        """
+        get_by_alias - get a model by alias
+        """
+        try:
+            org, model = alias.split("/")
+            path = "/api/v1/models/alias/%s/%s" % (org, model)
+            model = super().get(path)
+            return dto(model)
+        except Exception as e:
+            raise Exception('error getting model %s' % e)

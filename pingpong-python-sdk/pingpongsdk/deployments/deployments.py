@@ -1,11 +1,13 @@
 from ..shared.client.client import Client
-from .model import Deployment, dto, CreateDeployment
+from .model import Deployment, dto, request_dto, CreateDeployment
 
 from dataclasses import asdict
 
 
 class Deployments(Client):
-    def __init__(self, api_key: str) -> None:
+
+    def __init__(self, api_key: str, models) -> None:
+        self.models = models
         super().__init__(api_key)
 
 
@@ -22,9 +24,12 @@ class Deployments(Client):
         create - create a new Deployment
         """
         try:
-            deployment = super().post("/api/v1/deployments", asdict(deployment))
-            print(deployment)
-            # return dto(deployment)
+            model = self.models.get_by_alias(deployment.model)
+            id = model.id
+            request = request_dto(id, deployment)
+
+            deployment = super().post("/api/v1/deployments", request)
+            return dto(deployment)
         except Exception as e:
             raise Exception('error creating deployment %s' % e)
 
