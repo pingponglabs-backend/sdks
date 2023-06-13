@@ -19,12 +19,24 @@ class Client
 
     private \PingPong\HttpClient\HttpClient $client;
 
-    public function __construct(string $apiKey = getenv('X_PINGPONG_KEY'))
+    public function __construct(string $apiKey)
     {
+        // If the apiKey is empty, check the environment variable
+        if (empty($apiKey)) {
+            $envApiKey = getenv('X_PINGPONG_KEY');
+
+            // If it's not there either, then we give up 🤷🏻‍♂️
+            if (empty($envApiKey)) {
+                throw new \Exception('API key is required');
+            }
+
+            $this->apiKey = $envApiKey;
+        }
+
         $this->client = new HttpClient();
 
-        $this->deployments = new Deployments($this->client);
         $this->models = new Models($this->client);
+        $this->deployments = new Deployments($this->client, $this->models);
     }
 
     public function deployments(): \PingPong\Deployments\Deployments

@@ -2,10 +2,14 @@
 
 namespace PingPong\Deployments;
 
-readonly class Job
+class Job
 {
-    public function __construct(
-        public array $files = [],
-        public int $creditsUsed = 0,
-    ) {}
+    public array $files;
+    public int $creditsUsed;
+    
+    public function __construct(array $files = [], int $creditsUsed = 0)
+    {
+        $this->files = $files;
+        $this->creditsUsed = $creditsUsed;
+    }
 }

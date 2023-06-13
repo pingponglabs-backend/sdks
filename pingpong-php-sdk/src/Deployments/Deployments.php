@@ -9,9 +9,12 @@ class Deployments
 {
     private \PingPong\HttpClient\HttpClient $client;
 
-    function __construct(\PingPong\HttpClient\HttpClient $client)
+    private \PingPong\Models\Models $models;
+
+    function __construct(\PingPong\HttpClient\HttpClient $client, \PingPong\Models\Models $models)
     {
         $this->client = $client;
+        $this->models = $models;
     }
 
     /**
@@ -20,13 +23,13 @@ class Deployments
     private function deploymentFactory(array $response): Deployment
     {
         $j = $response['job'];
-
         if (empty($j)) {
             throw new Exception('Job is empty');
         }
 
         $job = new Job($j['files'], $j['credits_used']);
-        return new Deployment($response['name'], $response['model_id'], $job);
+
+        return new Deployment($response['name'], $response['id'], $job);
     }
 
     /**
@@ -34,6 +37,10 @@ class Deployments
      */
     public function create(DeploymentInput $deployment): Deployment
     {
+        // Fetch the model by its alias, then update the deployment's model id to be the actualy id
+        // and not the alias
+        $deployment->setModel($this->models->getByAlias($deployment->getModel())->id);
+
         $response = $this->client->post("api/v1/deployments", $deployment);
 
         return $this->deploymentFactory($response);

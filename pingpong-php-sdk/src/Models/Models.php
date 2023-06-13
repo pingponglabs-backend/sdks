@@ -38,4 +38,27 @@ class Models
 
         return $this->modelFactory($response);
     }
+
+    private function splitOrgRepo(string $alias): array
+    {
+        $split = explode('/', $alias);
+
+        if (count($split) !== 2) {
+            throw new Exception('Invalid alias');
+        }
+
+        return $split;
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getByAlias(string $alias): Model
+    {
+        $split = $this->splitOrgRepo($alias);
+
+        $response = $this->client->get('api/v1/models/alias/' . $split[0] . '/' . $split[1]);
+
+        return $this->modelFactory($response);
+    }
 }
