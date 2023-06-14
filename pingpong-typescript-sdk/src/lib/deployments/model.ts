@@ -13,6 +13,13 @@ export type Deployment = {
 
 export type DeploymentInput = {
   name: string;
+  model: string;
+  args: InputArgs;
+  modelId?: string;
+};
+
+export type DeploymentRequest = {
+  name: string;
   model_id: string;
   args: InputArgs;
 };
