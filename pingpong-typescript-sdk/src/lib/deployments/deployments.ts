@@ -4,7 +4,6 @@ import Models from '../models/models';
 import { Deployment, DeploymentInput, DeploymentRequest } from './model';
 
 class Deployments extends Client {
-
     private models: Models;
 
     constructor(apiKey: string, models: Models) {

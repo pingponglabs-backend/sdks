@@ -12,7 +12,7 @@ class OneUp {
 
     constructor(apiKey = _X_PINGPONG_KEY) {
         this.models = new Models(apiKey);
-        this.deployments = new Deployments(apiKey);
+        this.deployments = new Deployments(apiKey, this.models);
     }
 }
 
