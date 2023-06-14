@@ -22,6 +22,15 @@ class Models extends Client {
       throw new Error(`failed to list models: ${e.message}`);
     }
   }
+
+  async getByAlias(alias: string): Promise<Model> {
+    const [org, repo] = alias.split('/');
+    try {
+      return this.get<Model>(`/api/v1/models/alias/${org}/${repo}`);
+    } catch (e) {
+      throw new Error(`failed to fetch model by alias: ${e.message}`);
+    }
+  }
 }
 
 export default Models;
