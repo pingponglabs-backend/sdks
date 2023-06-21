@@ -17,7 +17,6 @@ if __name__ == '__main__':
             }
         ))
 
-        print(deployment.name)
-        print(deployment.job.results)
+        print(deployment.job)
     except Exception as e:
         print(e)
