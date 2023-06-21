@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class Model:
     id: str
     name: str
+    alias: str
     description: str
     example_outputs: list[str]
     args: list[dict]
