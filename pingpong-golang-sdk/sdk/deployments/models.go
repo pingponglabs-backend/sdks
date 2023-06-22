@@ -3,6 +3,7 @@ package deployments
 type CreateDeployment struct {
 	Name    string                 `json:"name"`
 	Args    map[string]interface{} `json:"args"`
+	Model   string                 `json:"-"`
 	ModelID string                 `json:"model_id"`
 }
 

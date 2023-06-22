@@ -34,10 +34,16 @@ func NewClient(opts ...Option) *Client {
 		opt(&defaultOptions)
 	}
 
+	// Default http transport
 	httpTransport := http.New(defaultOptions.Key)
+
+	// Clients
+	modelsClient := models.NewClient(httpTransport)
+	deploymentsClient := deployments.NewClient(httpTransport, modelsClient)
+
 	return &Client{
-		models:      models.NewClient(httpTransport),
-		deployments: deployments.NewClient(httpTransport),
+		models:      modelsClient,
+		deployments: deploymentsClient,
 	}
 }
 

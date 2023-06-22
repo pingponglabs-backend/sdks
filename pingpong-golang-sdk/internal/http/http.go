@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-const BasePath = "https://mediamagic.dev"
+const BasePath = "https://mediamagic.dev/api/v1"
 
 type Client struct {
 	transport *http.Client
