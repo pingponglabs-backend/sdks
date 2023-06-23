@@ -17,7 +17,7 @@ func NewClient(httpTransport *http.Client) *Client {
 }
 
 func (c *Client) List() ([]Model, error) {
-	response, err := c.httpClient.Get("/api/v1/models")
+	response, err := c.httpClient.Get("/models")
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,22 @@ func (c *Client) List() ([]Model, error) {
 }
 
 func (c *Client) GetByID(id string) (*Model, error) {
-	response, err := c.httpClient.Get("/models/" + id)
+	response, err := c.httpClient.Get(id)
+	if err != nil {
+		return nil, err
+	}
+
+	var model Model
+	if err := json.Unmarshal(response, &model); err != nil {
+		return nil, err
+	}
+
+	return &model, nil
+}
+
+func (c *Client) GetByAlias(alias string) (*Model, error) {
+	path := generateAliasPath(alias)
+	response, err := c.httpClient.Get(path)
 	if err != nil {
 		return nil, err
 	}

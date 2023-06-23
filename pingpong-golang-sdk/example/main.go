@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	client := sdk.NewClient(os.Getenv("X_PINGPONG_KEY"))
+	client := sdk.NewClient(sdk.WithKey(os.Getenv("X_PINGPONG_KEY")))
 	models, err := client.Models().List()
 	if err != nil {
 		panic(err)
@@ -25,7 +25,7 @@ func main() {
 		Args: map[string]interface{}{
 			"input_image_file": "https://cdn.mediamagic.dev/media/c7dbd266-3aa3-11ed-8e27-e679ed67c206.jpeg",
 		},
-		Model: "pingpongai/recommender",
+		Model: "pingpongai/ai-image-scan",
 	})
 	if err != nil {
 		panic(err)

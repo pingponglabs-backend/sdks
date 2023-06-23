@@ -18,6 +18,7 @@ type Examples = readonly Example[];
 
 export type Model = {
   readonly id: string;
+  readonly alias: string;
   readonly name: string;
   readonly description: string;
   readonly args: readonly Arg[];
