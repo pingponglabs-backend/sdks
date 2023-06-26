@@ -2,10 +2,7 @@ import { Client } from '../client/client.js';
 import type { Model } from './model.js';
 
 class Models extends Client {
-  constructor(apiKey: string) {
-    super(apiKey);
-  }
-
+  
   async getByAlias(alias: string): Promise<Model | undefined> {
     const [org, name] = alias.split('/');
     try {

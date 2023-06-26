@@ -29,7 +29,7 @@ class Deployments extends Client {
         try {
             return this.post<DeploymentInputWithIndex, Deployment>(
                 '/api/v1/deployments',
-                deployment
+                deployment,
             );
         } catch (e) {
             if (e instanceof Error) {
