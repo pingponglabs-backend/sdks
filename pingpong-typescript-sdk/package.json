@@ -1,6 +1,6 @@
 {
   "name": "@pingpongai/typescript-sdk",
-  "version": "1.0.4-rc",
+  "version": "1.0.4-rc-2",
   "description": "PingPong TypeScript SDK",
   "keywords": [
     "typescript",
@@ -13,12 +13,12 @@
   "types": "./build/index.d.ts",
   "license": "MIT",
   "engines": {
-    "node": "^18.15.0",
-    "npm": "^9.5.0"
+    "node": "^14.0.0",
+    "npm": "^8.0.0"
   },
   "volta": {
-    "node": "18.15.0",
-    "npm": "9.5.0"
+    "node": "^14.0.0",
+    "npm": "^8.0.0"
   },
   "publishConfig": {
     "access": "public"
