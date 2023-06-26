@@ -1,18 +1,19 @@
-type InputArgs = Record<string, any>;
+type InputArgs = Record<string, unknown>;
 
-type Job = {
-  result: string[];
-  credits_used: number;
-};
+export interface Job {
+  readonly result: string[];
+  readonly credits_used: number;
+}
 
-export type Deployment = {
+export interface Deployment {
+  readonly name: string;
+  readonly model_id: string;
+  readonly job: Job;
+}
+
+export interface DeploymentInput {
   name: string;
-  model_id: string;
-  job: Job;
-};
-
-export type DeploymentInput = {
-  name: string;
-  model_id: string;
+  model_id?: string;
   args: InputArgs;
-};
+  model: string;
+}

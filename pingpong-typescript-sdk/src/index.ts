@@ -1,19 +1,20 @@
-import Deployments from './lib/deployments/deployments';
-import Models from './lib/models/models';
+import { Deployments } from './lib/deployments/deployments.js';
+import { Models } from './lib/models/models.js';
 
-const _X_MEDIAMAGIC_KEY = process.env['X_MEDIAMAGIC_KEY'];
+export type { Deployment, DeploymentInput, Job } from './lib/deployments/model.js';
+export type { Model } from './lib/models/model.js'
 
-// OneUp SDK factory
-class OneUp {
+const { X_PINGPONG_KEY } = process.env;
 
-    public models: Models;
-
-    public deployments: Deployments;
-
-    constructor(apiKey = _X_MEDIAMAGIC_KEY) {
+// PingPong SDK factory
+class PingPong {
+    public readonly models: Models;
+    public readonly deployments: Deployments;
+ 
+    constructor(apiKey = X_PINGPONG_KEY!) {
         this.models = new Models(apiKey);
-        this.deployments = new Deployments(apiKey);
+        this.deployments = new Deployments(apiKey, this.models);
     }
 }
 
-export default OneUp;
+export { PingPong };
