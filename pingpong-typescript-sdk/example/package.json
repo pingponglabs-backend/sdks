@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@pingpongai/typescript-sdk": "^1.0.2"
+    "@pingpongai/typescript-sdk": "^1.0.3"
   }
 }
