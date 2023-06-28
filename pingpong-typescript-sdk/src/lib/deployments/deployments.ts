@@ -15,17 +15,18 @@ class Deployments extends Client {
     }
 
     async create(deployment: DeploymentInputWithIndex): Promise<Deployment | undefined> {
-        let model;
-        try {
-            model = await this.modelsClient.getByAlias(deployment.model);
-        } catch (e) {
-            if (e instanceof Error) {
-                throw new Error(`error fetching model: ${e.message}`);
+        if (deployment.model.includes('pingpongai')) {
+            let model;
+            try {
+                model = await this.modelsClient.getByAlias(deployment.model);
+            } catch (e) {
+                if (e instanceof Error) {
+                    throw new Error(`error fetching model: ${e.message}`);
+                }
             }
+            deployment.model_id = model?.id;
         }
-
-        // Replace model alias with model ID
-        deployment.model_id = model?.id;
+        deployment.model_id = deployment.model;
         try {
             return this.post<DeploymentInputWithIndex, Deployment>(
                 '/api/v1/deployments',
