@@ -2,7 +2,7 @@
 
 namespace PingPong\Deployments;
 
-readonly class Job
+class Job
 {
     public function __construct(
         public array $files = [],

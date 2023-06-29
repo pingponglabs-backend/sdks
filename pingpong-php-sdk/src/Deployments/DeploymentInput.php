@@ -5,7 +5,7 @@ namespace PingPong\Deployments;
 use \PingPong\HttpClient\Mappable;
 
 
-readonly class DeploymentInput implements Mappable
+class DeploymentInput implements Mappable
 {
     public function __construct(
         public string $name,

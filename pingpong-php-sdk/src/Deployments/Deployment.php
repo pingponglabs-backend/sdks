@@ -2,7 +2,7 @@
 
 namespace PingPong\Deployments;
 
-readonly class Deployment {
+class Deployment {
 
     public function __construct(
         public string $name,

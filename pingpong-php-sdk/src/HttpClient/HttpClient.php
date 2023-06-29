@@ -13,7 +13,11 @@ class HttpClient
 
     private string $API_KEY;
 
-    function __construct(string $apiKey) {
+    function __construct(string $apiKey = "") {
+
+        if ( $apiKey === "" ){
+            $apiKey = getenv('X_PINGPONG_KEY');
+        }
         $this->API_KEY = $apiKey;
         $this->client = new GuzzleHttp\Client([
             'base_uri' => $this->BASE_URL,
