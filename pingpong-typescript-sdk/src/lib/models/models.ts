@@ -1,36 +1,38 @@
-import Client from '../client/client';
-
-import { Model } from './model';
+import { Client } from '../client/client.js';
+import type { Model } from './model.js';
 
 class Models extends Client {
-  constructor(apiKey: string) {
-    super(apiKey);
+  
+  async getByAlias(alias: string): Promise<Model | undefined> {
+    const [org, name] = alias.split('/');
+    try {
+      return this.get<Model>(`/api/v1/models/alias/${org}/${name}`);
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(`failed to fetch model by alias: ${e.message}`);
+      }
+    }
   }
 
-  async getById(id: string): Promise<Model> {
+  async getById(id: string): Promise<Model | undefined> {
     try {
       return this.get<Model>(`/api/v1/models/${id}`);
     } catch (e) {
-      throw new Error(`failed to fetch model by ID: ${e.message}`);
+      if (e instanceof Error) {
+        throw new Error(`failed to fetch model by ID: ${e.message}`);
+      }
     }
   }
 
-  async list(): Promise<readonly Model[]> {
+  async list(): Promise<readonly Model[] | undefined> {
     try {
       return this.get<readonly Model[]>('/api/v1/models');
     } catch (e) {
-      throw new Error(`failed to list models: ${e.message}`);
-    }
-  }
-
-  async getByAlias(alias: string): Promise<Model> {
-    const [org, repo] = alias.split('/');
-    try {
-      return this.get<Model>(`/api/v1/models/alias/${org}/${repo}`);
-    } catch (e) {
-      throw new Error(`failed to fetch model by alias: ${e.message}`);
+      if (e instanceof Error) {
+        throw new Error(`failed to list models: ${e.message}`);
+      }
     }
   }
 }
 
-export default Models;
+export { Models };

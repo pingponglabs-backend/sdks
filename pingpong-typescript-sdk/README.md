@@ -1,19 +1,15 @@
-# pingpong-typescript-sdk
+# PingPongAI TypeScript SDK
 
-PingPong Typescript SDK
-
-## Example
-
-```typescript 
-import PingPong from '@pingpongai/typescript-sdk';
+```javascript
+import { PingPong } from '@pingpongai/typescript-sdk';
 
 const pingpong = new PingPong();
-const deployment = pingpong.deployments.create({
-    name: 'test',
-    model: 'pingpongai/<model-name>',
-    args: {
-        'input_image_file': 'image-file.jpg',
-    }
-});
 
+const deployment = await pingpong.deployments.create({
+  model: 'pingpongai/ai-image-scan',
+  name: 'test',
+  args: {
+    input_image_file: "https://cdn.mediamagic.dev/media/c7dbd266-3aa3-11ed-8e27-e679ed67c206.jpeg"
+  },
+});
 ```

@@ -1,6 +1,4 @@
-import fetch from 'node-fetch';
-
-const DEFAULT_HEADERS = {
+const DEFAULT_HEADERS: Record<string, string> = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
 };
@@ -14,7 +12,7 @@ class Client {
     this.apiKey = apiKey;
   }
 
-  async get<T>(path: string): Promise<T> {
+  async get<T>(path: string): Promise<T | undefined> {
     try {
       const response = await fetch(`${BASE_URL}${path}`, {
         method: 'GET',
@@ -23,11 +21,13 @@ class Client {
       const json = (await response.json()) as T;
       return json;
     } catch (e) {
-      throw new Error(this.errorFmt(e, 'POST', path));
+      if (e instanceof Error) {
+        throw new Error(this.errorFmt(e, 'POST', path));
+      }
     }
   }
 
-  async post<I, O>(path: string, body: I): Promise<O> {
+  async post<I extends Record<string, unknown>, O>(path: string, body: I): Promise<O | undefined> {
     try {
       const response = await fetch(`${BASE_URL}${path}`, {
         method: 'POST',
@@ -37,7 +37,9 @@ class Client {
       const json = (await response.json()) as O;
       return json;
     } catch (e) {
-      throw new Error(this.errorFmt(e, 'POST', path));
+      if (e instanceof Error) {
+        throw new Error(this.errorFmt(e, 'POST', path));
+      }
     }
   }
 
@@ -50,4 +52,4 @@ class Client {
   }
 }
 
-export default Client;
+export { Client };
