@@ -8,11 +8,14 @@ type CreateDeployment struct {
 }
 
 type Job struct {
+	Id          string   `json:"id"`
 	Files       []string `json:"files"`
 	CreditsUsed int      `json:"credits_used"`
+	Status      string   `json:"status"`
 }
 
 type Deployment struct {
-	ID  string `json:"id"`
-	Job Job    `json:"job"`
+	ID     string `json:"id"`
+	Job    Job    `json:"job"`
+	Status string `json:"status"`
 }

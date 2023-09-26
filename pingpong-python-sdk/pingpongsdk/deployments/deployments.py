@@ -1,5 +1,5 @@
 from ..shared.client.client import Client
-from .model import Deployment, dto, request_dto, CreateDeployment
+from .model import Deployment, dto, request_dto, CreateDeployment,Job
 
 from dataclasses import asdict
 
@@ -24,7 +24,7 @@ class Deployments(Client):
         create - create a new Deployment
         """
         try:
-            model = self.models.get_by_alias(deployment.model)
+            model = self.models.get_by_id(deployment.model)
             id = model.id
             request = request_dto(id, deployment)
 
@@ -45,3 +45,14 @@ class Deployments(Client):
             result.append(dto(d))
 
         return result
+    
+    def get_job(self, id:str) -> Job:
+        """
+        get_job - get job by ID
+        """
+        path="/api/v1/jobs/"+ id
+        job = super().get(path)
+
+        return job
+
+    

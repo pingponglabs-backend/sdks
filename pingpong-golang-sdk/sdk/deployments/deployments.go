@@ -36,9 +36,9 @@ func (c *Client) List() ([]Deployment, error) {
 }
 
 func (c *Client) Create(deployment CreateDeployment) (*Deployment, error) {
-	model, err := c.modelsClient.GetByAlias(deployment.Model)
+	model, err := c.modelsClient.GetByID("/models/" + deployment.ModelID)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to get model by alias name: "+deployment.Model)
+		return nil, errors.Wrap(err, "failed to get model by ModelID: "+deployment.ModelID)
 	}
 
 	// Replace the model alias with the model ID
@@ -59,4 +59,17 @@ func (c *Client) Create(deployment CreateDeployment) (*Deployment, error) {
 	}
 
 	return deploymentResponse, nil
+}
+
+func (c *Client) GetJob(jobID string) (*Job, error) {
+	response, err := c.httpClient.Get("/jobs/" + jobID)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to get Job by JobID: "+jobID)
+	}
+	var jobResponse *Job
+	if err := json.Unmarshal(response, &jobResponse); err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshal GetJob response")
+	}
+
+	return jobResponse, nil
 }
