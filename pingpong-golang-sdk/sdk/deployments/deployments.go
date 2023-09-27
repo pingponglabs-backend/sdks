@@ -59,17 +59,19 @@ func (c *Client) Create(deployment CreateDeployment) (*Deployment, error) {
 	}
 	status := deploymentResponse.Job.Status
 	eta := deploymentResponse.Job.Eta
-	for status != "complete" && status != "failed" && eta > 0 {
-		time.Sleep(10 * time.Second)
-		job, err := c.GetJob(deploymentResponse.Job.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, "failed to check deployment status")
+	if deployment.Sync {
+		for status != "complete" && status != "failed" && eta > 0 {
+			time.Sleep(10 * time.Second)
+			job, err := c.GetJob(deploymentResponse.Job.Id)
+			if err != nil {
+				return nil, errors.Wrap(err, "failed to check deployment status")
+			}
+			status = job.Status
+			deploymentResponse.Job = *job
+			deploymentResponse.Status = job.Status
+			deploymentResponse.Logs = job.Logs
+			eta -= 5
 		}
-		status = job.Status
-		deploymentResponse.Job = *job
-		deploymentResponse.Status = job.Status
-		deploymentResponse.Logs = job.Logs
-		eta -= 5
 	}
 
 	return deploymentResponse, nil

@@ -17,6 +17,7 @@ func main() {
 			"input": "https://cdn.mediamagic.dev/media/c7dbd266-3aa3-11ed-8e27-e679ed67c206.jpeg",
 		},
 		Model: "844218fa-c5d0-4cee-90ce-0b42d226ac8d",
+		Sync:  false,
 	})
 	if err != nil {
 		panic(err)
@@ -30,6 +31,6 @@ func RunGetJobExample(client *sdk.Client) {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	log.Println("job: ", job)
 }

@@ -4,6 +4,7 @@ type CreateDeployment struct {
 	Name  string                 `json:"name"`
 	Args  map[string]interface{} `json:"args"`
 	Model string                 `json:"model_id"`
+	Sync  bool                   `json:"sync"`
 }
 
 type Job struct {
