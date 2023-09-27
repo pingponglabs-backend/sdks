@@ -3,6 +3,7 @@ package deployments
 import (
 	"bytes"
 	"encoding/json"
+	"time"
 
 	"github.com/pingponglabs-backend/sdks/pingpong-golang-sdk/internal/http"
 	"github.com/pingponglabs-backend/sdks/pingpong-golang-sdk/sdk/models"
@@ -36,13 +37,12 @@ func (c *Client) List() ([]Deployment, error) {
 }
 
 func (c *Client) Create(deployment CreateDeployment) (*Deployment, error) {
-	model, err := c.modelsClient.GetByID("/models/" + deployment.ModelID)
+	model, err := c.modelsClient.GetByID("/models/" + deployment.Model)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to get model by ModelID: "+deployment.ModelID)
+		return nil, errors.Wrap(err, "failed to get model by ModelID: "+deployment.Model)
 	}
 
-	// Replace the model alias with the model ID
-	deployment.ModelID = model.ID
+	deployment.Model = model.ID
 
 	body, err := json.Marshal(deployment)
 	if err != nil {
@@ -56,6 +56,22 @@ func (c *Client) Create(deployment CreateDeployment) (*Deployment, error) {
 	var deploymentResponse *Deployment
 	if err := json.Unmarshal(response, &deploymentResponse); err != nil {
 		return nil, errors.Wrap(err, "failed to unmarshal deployment response")
+	}
+	status := deploymentResponse.Job.Status
+	eta := deploymentResponse.Job.Eta
+	if deployment.Sync {
+		for status != "complete" && status != "failed" && eta > 0 {
+			time.Sleep(10 * time.Second)
+			job, err := c.GetJob(deploymentResponse.Job.Id)
+			if err != nil {
+				return nil, errors.Wrap(err, "failed to check deployment status")
+			}
+			status = job.Status
+			deploymentResponse.Job = *job
+			deploymentResponse.Status = job.Status
+			deploymentResponse.Logs = job.Logs
+			eta -= 5
+		}
 	}
 
 	return deploymentResponse, nil
