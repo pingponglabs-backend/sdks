@@ -1,3 +1,5 @@
+import fetch from 'cross-fetch';
+
 const DEFAULT_HEADERS: Record<string, string> = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
