@@ -18,5 +18,7 @@ class PingPong():
     deployments: Deployments
 
     def __init__(self, api_key=_API_KEY):
+        if len(_API_KEY)==0:
+            raise ValueError("X_PINGPONG_KEY missing")
         self.models = Models(api_key=api_key)
         self.deployments = Deployments(api_key=api_key, models=self.models)
