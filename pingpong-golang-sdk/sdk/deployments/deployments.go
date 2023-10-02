@@ -10,6 +10,11 @@ import (
 	"github.com/pkg/errors"
 )
 
+const (
+	COMPLETE = "complete"
+	FAILED   = "failed"
+)
+
 type Client struct {
 	httpClient   *http.Client
 	modelsClient *models.Client
@@ -60,7 +65,7 @@ func (c *Client) Create(deployment CreateDeployment) (*Deployment, error) {
 	status := deploymentResponse.Job.Status
 	eta := deploymentResponse.Job.Eta
 	if deployment.Sync {
-		for status != "complete" && status != "failed" && eta > 0 {
+		for status != COMPLETE && status != FAILED && eta > 0 {
 			time.Sleep(10 * time.Second)
 			job, err := c.GetJob(deploymentResponse.Job.Id)
 			if err != nil {
