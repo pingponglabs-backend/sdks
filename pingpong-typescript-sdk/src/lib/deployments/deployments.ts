@@ -2,6 +2,9 @@ import { Client } from '../client/client.js';
 import { Models } from '../models/models.js';
 import { Deployment, DeploymentInput, Job } from './model.js';
 
+const COMPLETE = 'complete';
+const FAILED = 'failed';
+
 interface DeploymentInputWithIndex extends DeploymentInput {
     [key: string]: unknown;
 }
@@ -29,15 +32,13 @@ class Deployments extends Client {
                 '/api/v1/deployments',
                 deployment,
             );
-            if (actualResponse !== undefined) {
+            if (actualResponse != undefined) {
                 let eta = actualResponse.job.eta
-                let status = actualResponse.status
                 if (deployment.sync) {
-                    while (actualResponse.status !== "complete" && actualResponse.status !== "failed" && eta > 0) {
+                    while (actualResponse.status !== COMPLETE && actualResponse.status !== FAILED && eta > 0) {
                         await this.sleep(10000);
-                        let job = await this.get_job(actualResponse.job_id)
+                        let job = await this.getJob(actualResponse.job_id)
                         if (job != undefined) {
-                            status = job.status;
                             eta -= 5;
                             actualResponse.job = job;
                             actualResponse.logs = job.logs;
@@ -64,7 +65,7 @@ class Deployments extends Client {
         }
     }
 
-    async get_job(id: string): Promise<Job | undefined> {
+    async getJob(id: string): Promise<Job | undefined> {
         try {
             return this.get<Job>(`/api/v1/jobs/${id}`);
         } catch (e: unknown) {
