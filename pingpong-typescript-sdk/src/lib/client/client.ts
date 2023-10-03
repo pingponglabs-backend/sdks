@@ -16,10 +16,16 @@ class Client {
 
   async get<T>(path: string): Promise<T | undefined> {
     try {
+      if (this.apiKey == "") {
+        throw new Error("X_PINGPONG_KEY is missing");
+      }
       const response = await fetch(`${BASE_URL}${path}`, {
         method: 'GET',
         headers: this.getHeaders(),
       });
+      if (response.status !== 200) {
+        throw new Error("status: " + response.status);
+      }
       const json = (await response.json()) as T;
       return json;
     } catch (e) {
@@ -31,11 +37,17 @@ class Client {
 
   async post<I extends Record<string, unknown>, O>(path: string, body: I): Promise<O | undefined> {
     try {
+      if (this.apiKey == "") {
+        throw new Error("X_PINGPONG_KEY is missing");
+      }
       const response = await fetch(`${BASE_URL}${path}`, {
         method: 'POST',
         headers: this.getHeaders(),
         body: JSON.stringify(body),
       });
+      if (response.status !== 201) {
+        throw new Error("error in response: " + response.statusText)
+      }
       const json = (await response.json()) as O;
       return json;
     } catch (e) {

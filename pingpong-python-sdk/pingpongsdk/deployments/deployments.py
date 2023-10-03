@@ -5,6 +5,8 @@ from typing import List
 
 from dataclasses import asdict
 
+COMPLETE = 'complete'
+FAILED = 'failed'
 
 class Deployments(Client):
 
@@ -35,17 +37,18 @@ class Deployments(Client):
             status=response.status
             eta= response.job['eta']
             if sync: 
-                while status!='complete' and status!='failed' and eta > 0:
+                while status!=COMPLETE and status!=FAILED and eta > 0:
                     time.sleep(10)
                     job=self.get_job(response.job_id)
                     eta-=5
                     status=job['status']
                     response.status=status
-                    response.logs=job['logs']
+                    if 'logs' in job:
+                        response.logs=job['logs']
                     response.job=job
             return response
         except Exception as e:
-            raise Exception('error creating deployment %s' % e)
+            raise Exception('error creating deployment: %s' % e)
 
 
     def list(self, start: int, to: int) -> List[Deployment]:

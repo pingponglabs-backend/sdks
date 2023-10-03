@@ -33,7 +33,6 @@ class Client:
                 'x-mediamagic-key': self._api_key,
                 'Accept': 'application/json',
             })
-            print(response.json())
             response.raise_for_status()
             return response.json()
         except requests.exceptions.HTTPError as e:

@@ -8,7 +8,7 @@ describe('Deployments', () => {
         const models = new Models(process.env.X_PINGPONG_KEY!);
         const client = new Deployments(process.env.X_PINGPONG_KEY!, models);
         const deployment = await client.create({
-            model: 'pingpongai/ai-image-scan',
+            model: '844218fa-c5d0-4cee-90ce-0b42d226ac8d',
             name: 'test',
             args: {
                 input_image_file: "https://cdn.mediamagic.dev/media/c7dbd266-3aa3-11ed-8e27-e679ed67c206.jpeg"

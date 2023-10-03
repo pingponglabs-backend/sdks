@@ -2,7 +2,6 @@
 
 namespace PingPong;
 
-use PingPong\Deployments\Deployment;
 use PingPong\Deployments\Deployments;
 use PingPong\HttpClient\HttpClient;
 use PingPong\Models\Models;
@@ -11,31 +10,32 @@ require 'vendor/autoload.php';
 
 class Client
 {
-    public \PingPong\Deployments\Deployments $deployments;
+    public Deployments $deployments;
 
-    public \PingPong\Models\Models $models;
+    public Models $models;
 
     private string $apiKey;
 
-    private \PingPong\HttpClient\HttpClient $client;
+    private HttpClient $client;
 
     public function __construct(string $apiKey = "")
     {
-        if ( $apiKey === "" ){
+        if ($apiKey === "") {
             $apiKey = getenv('X_PINGPONG_KEY');
         }
-        $this->client = new HttpClient();
+
+        $this->client = new HttpClient($apiKey);
 
         $this->deployments = new Deployments($this->client);
         $this->models = new Models($this->client);
     }
 
-    public function deployments(): \PingPong\Deployments\Deployments
+    public function deployments(): Deployments
     {
         return $this->deployments();
     }
 
-    public function models(): \PingPong\Models\Models
+    public function models(): Models
     {
         return $this->models();
     }
