@@ -3,12 +3,15 @@
 namespace PingPong\Models;
 
 use GuzzleHttp\Exception\GuzzleException;
+use PingPong\HttpClient\HttpClient;
+
+require 'vendor/autoload.php';
 
 class Models
 {
-    private \PingPong\HttpClient\HttpClient $client;
+    private HttpClient $client;
 
-    function __construct(\PingPong\HttpClient\HttpClient $client)
+    function __construct(HttpClient $client)
     {
         $this->client = $client;
     }
