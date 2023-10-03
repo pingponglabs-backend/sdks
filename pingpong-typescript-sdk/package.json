@@ -1,6 +1,6 @@
 {
-  "name": "@pingpongai/typescript-sdk",
-  "version": "1.0.4-rc-6",
+  "name": "@pingpong_ai/typescript-sdk",
+  "version": "1.0.5-rc-1",
   "description": "PingPong TypeScript SDK",
   "keywords": [
     "typescript",

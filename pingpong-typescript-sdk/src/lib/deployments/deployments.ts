@@ -33,13 +33,13 @@ class Deployments extends Client {
                 deployment,
             );
             if (actualResponse != undefined) {
-                let eta = actualResponse.job.eta
+                let eta = (actualResponse.job.eta * 3) + 120;
                 if (deployment.sync) {
                     while (actualResponse.status !== COMPLETE && actualResponse.status !== FAILED && eta > 0) {
-                        await this.sleep(10000);
+                        await this.sleep(10 * 1000);
                         let job = await this.getJob(actualResponse.job_id)
                         if (job != undefined) {
-                            eta -= 5;
+                            eta -= 10;
                             actualResponse.job = job;
                             actualResponse.logs = job.logs;
                             actualResponse.status = job.status;
