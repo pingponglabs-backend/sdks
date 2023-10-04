@@ -4,6 +4,8 @@ import { Deployment, DeploymentInput, Job } from './model.js';
 
 const COMPLETE = 'complete';
 const FAILED = 'failed';
+const DOCKER_PULLING = "docker_pulling";
+const STARTING = 'starting'
 
 interface DeploymentInputWithIndex extends DeploymentInput {
     [key: string]: unknown;
@@ -39,7 +41,9 @@ class Deployments extends Client {
                         await this.sleep(10 * 1000);
                         let job = await this.getJob(actualResponse.job_id)
                         if (job != undefined) {
-                            eta -= 10;
+                            if (job.status !== DOCKER_PULLING && job.status != STARTING) {
+                                eta -= 10;
+                            }
                             actualResponse.job = job;
                             actualResponse.logs = job.logs;
                             actualResponse.status = job.status;
