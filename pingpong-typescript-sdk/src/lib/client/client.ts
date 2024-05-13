@@ -5,7 +5,7 @@ const DEFAULT_HEADERS: Record<string, string> = {
   Accept: 'application/json',
 };
 
-const BASE_URL = 'https://mediamagic.dev';
+const BASE_URL = 'https://api-qa.mediamagic.ai';
 
 class Client {
   private readonly apiKey: string;
@@ -45,7 +45,7 @@ class Client {
         headers: this.getHeaders(),
         body: JSON.stringify(body),
       });
-      if (response.status !== 201) {
+      if (response.status !== 200) {
         throw new Error("error in response: " + response.statusText)
       }
       const json = (await response.json()) as O;
