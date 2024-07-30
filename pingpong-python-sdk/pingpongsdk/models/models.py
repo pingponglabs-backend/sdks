@@ -16,8 +16,8 @@ def dto(m: list) -> Model:
 
 
 class Models(Client):
-    def __init__(self, api_key: str) -> None:
-        super().__init__(api_key)
+    def __init__(self, api_key: str,mm_url: str) -> None:
+        super().__init__(api_key,mm_url)
     
     def list(self):
         """
