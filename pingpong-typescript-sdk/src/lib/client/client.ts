@@ -5,13 +5,13 @@ const DEFAULT_HEADERS: Record<string, string> = {
   Accept: 'application/json',
 };
 
-const BASE_URL = 'https://api-qa.mediamagic.ai';
-
 class Client {
   private readonly apiKey: string;
+  private readonly mmUrl: string;
 
-  constructor(apiKey: string) {
+  constructor(apiKey: string, mmUrl: string) {
     this.apiKey = apiKey;
+    this.mmUrl = mmUrl
   }
 
   async get<T>(path: string): Promise<T | undefined> {
@@ -19,7 +19,11 @@ class Client {
       if (this.apiKey == "") {
         throw new Error("X_PINGPONG_KEY is missing");
       }
-      const response = await fetch(`${BASE_URL}${path}`, {
+      if (this.mmUrl == "") {
+        throw new Error("MM_BASE_URL is missing");
+      }
+
+      const response = await fetch(`${this.mmUrl}${path}`, {
         method: 'GET',
         headers: this.getHeaders(),
       });
@@ -40,7 +44,10 @@ class Client {
       if (this.apiKey == "") {
         throw new Error("X_PINGPONG_KEY is missing");
       }
-      const response = await fetch(`${BASE_URL}${path}`, {
+      if (this.mmUrl == "") {
+        throw new Error("MM_BASE_URL is missing");
+      }
+      const response = await fetch(`${this.mmUrl}${path}`, {
         method: 'POST',
         headers: this.getHeaders(),
         body: JSON.stringify(body),
