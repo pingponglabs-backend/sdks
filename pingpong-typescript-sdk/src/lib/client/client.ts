@@ -1,23 +1,35 @@
+import fetch from 'cross-fetch';
+
 const DEFAULT_HEADERS: Record<string, string> = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
 };
 
-const BASE_URL = 'https://mediamagic.dev';
-
 class Client {
   private readonly apiKey: string;
+  private readonly mmUrl: string;
 
-  constructor(apiKey: string) {
+  constructor(apiKey: string, mmUrl: string) {
     this.apiKey = apiKey;
+    this.mmUrl = mmUrl
   }
 
   async get<T>(path: string): Promise<T | undefined> {
     try {
-      const response = await fetch(`${BASE_URL}${path}`, {
+      if (this.apiKey == "") {
+        throw new Error("X_PINGPONG_KEY is missing");
+      }
+      if (this.mmUrl == "") {
+        throw new Error("MM_BASE_URL is missing");
+      }
+
+      const response = await fetch(`${this.mmUrl}${path}`, {
         method: 'GET',
         headers: this.getHeaders(),
       });
+      if (response.status !== 200) {
+        throw new Error("status: " + response.status);
+      }
       const json = (await response.json()) as T;
       return json;
     } catch (e) {
@@ -29,11 +41,20 @@ class Client {
 
   async post<I extends Record<string, unknown>, O>(path: string, body: I): Promise<O | undefined> {
     try {
-      const response = await fetch(`${BASE_URL}${path}`, {
+      if (this.apiKey == "") {
+        throw new Error("X_PINGPONG_KEY is missing");
+      }
+      if (this.mmUrl == "") {
+        throw new Error("MM_BASE_URL is missing");
+      }
+      const response = await fetch(`${this.mmUrl}${path}`, {
         method: 'POST',
         headers: this.getHeaders(),
         body: JSON.stringify(body),
       });
+      if (response.status !== 200) {
+        throw new Error("error in response: " + response.statusText)
+      }
       const json = (await response.json()) as O;
       return json;
     } catch (e) {
