@@ -1,14 +1,19 @@
 from ..shared.client.client import Client
 from .model import Deployment, dto, request_dto, CreateDeployment,Job
+import time
+from typing import List
 
 from dataclasses import asdict
 
+COMPLETE = 'complete'
+FAILED = 'failed'
+ETA = 180
 
 class Deployments(Client):
 
-    def __init__(self, api_key: str, models) -> None:
+    def __init__(self, api_key: str,mm_url: str, models) -> None:
         self.models = models
-        super().__init__(api_key)
+        super().__init__(api_key,mm_url)
 
 
     def get_by_id(self, id: str) -> Deployment:
@@ -27,14 +32,25 @@ class Deployments(Client):
             model = self.models.get_by_id(deployment.model)
             id = model.id
             request = request_dto(id, deployment)
-
             deployment = super().post("/api/v1/deployments", request)
-            return dto(deployment)
+            response=dto(deployment)
+            status=response.status
+            eta = ETA
+            while status!=COMPLETE and status!=FAILED and eta > 0:
+                time.sleep(10)
+                job=self.get_job(response.job_id)
+                status=job['status']
+                eta -= 5
+                response.status=status
+                if 'logs' in job:
+                    response.logs=job['logs']
+                response.job=job
+            return response
         except Exception as e:
-            raise Exception('error creating deployment %s' % e)
+            raise Exception('error creating deployment: %s' % e)
 
 
-    def list(self, start: int, to: int) -> list[Deployment]:
+    def list(self, start: int, to: int) -> List[Deployment]:
         """
         list - list all of your deployments
         """
