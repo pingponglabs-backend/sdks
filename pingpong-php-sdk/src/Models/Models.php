@@ -3,12 +3,15 @@
 namespace PingPong\Models;
 
 use GuzzleHttp\Exception\GuzzleException;
+use PingPong\HttpClient\HttpClient;
+
+require '../vendor/autoload.php';
 
 class Models
 {
-    private \PingPong\HttpClient\HttpClient $client;
+    private HttpClient $client;
 
-    function __construct(\PingPong\HttpClient\HttpClient $client)
+    function __construct(HttpClient $client)
     {
         $this->client = $client;
     }
@@ -24,7 +27,7 @@ class Models
      */
     public function list(): Model
     {
-        $response = $this->client->get('api/v1/models');
+        $response = $this->client->get('/api/v1/models');
 
         return $this->modelFactory($response);
     }
@@ -34,7 +37,7 @@ class Models
      */
     public function getById(string $id): Model
     {
-        $response = $this->client->get('api/v1/models/' . $id);
+        $response = $this->client->get('/api/v1/models/' . $id);
 
         return $this->modelFactory($response);
     }

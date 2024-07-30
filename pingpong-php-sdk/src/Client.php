@@ -2,41 +2,45 @@
 
 namespace PingPong;
 
-use PingPong\Deployments\Deployment;
 use PingPong\Deployments\Deployments;
 use PingPong\HttpClient\HttpClient;
 use PingPong\Models\Models;
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 class Client
 {
-    public \PingPong\Deployments\Deployments $deployments;
-
-    public \PingPong\Models\Models $models;
-
+    public Deployments $deployments;
+    public Models $models;
     private string $apiKey;
 
-    private \PingPong\HttpClient\HttpClient $client;
+    private string $mmBaseUrl;
+    
+    private HttpClient $client;
 
     public function __construct(string $apiKey = "")
     {
-        if ( $apiKey === "" ){
+        if ($apiKey === "") {
             $apiKey = getenv('X_PINGPONG_KEY');
         }
-        $this->client = new HttpClient();
 
+        $mmBaseUrl = getenv('MM_BASE_URL');
+        if ($mmBaseUrl === false || $mmBaseUrl === "") {
+            $mmBaseUrl = "https://api-qa.mediamagic.ai";
+        }
+            
+        $this->client = new HttpClient($apiKey, $mmBaseUrl);
         $this->deployments = new Deployments($this->client);
         $this->models = new Models($this->client);
     }
 
-    public function deployments(): \PingPong\Deployments\Deployments
+    public function deployments(): Deployments
     {
-        return $this->deployments();
+        return $this->deployments;
     }
 
-    public function models(): \PingPong\Models\Models
+    public function models(): Models
     {
-        return $this->models();
+        return $this->models;
     }
 }
