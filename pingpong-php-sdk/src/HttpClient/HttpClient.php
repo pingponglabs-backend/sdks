@@ -6,25 +6,24 @@ use GuzzleHttp;
 use GuzzleHttp\Client;
 use mysql_xdevapi\Exception;
 
-require 'vendor/autoload.php';
-
-
+require '../vendor/autoload.php';
 
 class HttpClient
 {
     private Client $client;
 
-    private string $BASE_URL = "https://mediamagic.dev";
+    private string $BASE_URL;
 
     private string $API_KEY;
 
-    function __construct(string $apiKey = "")
+    function __construct(string $apiKey="" ,string $mmBaseUrl="")
     {
 
         if ($apiKey === "") {
             $apiKey = getenv('X_PINGPONG_KEY');
         }
         $this->API_KEY = $apiKey;
+        $this->BASE_URL = $mmBaseUrl;
         $this->client = new Client([
             'base_uri' => $this->BASE_URL,
         ]);

@@ -8,22 +8,22 @@ import (
 	"github.com/pkg/errors"
 )
 
-const BasePath = "https://mediamagic.dev/api/v1"
-
 type Client struct {
 	transport *http.Client
 	apiKey    string
+	url       string
 }
 
-func New(apiKey string) *Client {
+func New(apiKey,url string) *Client {
 	return &Client{
 		transport: http.DefaultClient,
 		apiKey:    apiKey,
+		url:       url,
 	}
 }
 
 func (c *Client) Get(path string) ([]byte, error) {
-	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s%s", BasePath, path), nil)
+	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s%s",c.url, path), nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create GET request")
 	}
@@ -38,7 +38,7 @@ func (c *Client) Get(path string) ([]byte, error) {
 }
 
 func (c *Client) Post(path string, body io.Reader) ([]byte, error) {
-	req, err := http.NewRequest(http.MethodPost, fmt.Sprintf("%s%s", BasePath, path), body)
+	req, err := http.NewRequest(http.MethodPost, fmt.Sprintf("%s%s", c.url, path), body)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create POST request")
 	}

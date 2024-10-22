@@ -25,7 +25,7 @@ class DeploymentsTest extends TestCase
         $httpClient
             ->expects($this->once())
             ->method('post')
-            ->with('api/v1/deployments', $deploymentInput)
+            ->with('/api/v1/deployments', $deploymentInput)
             ->willReturn($response);
 
         $deployments = new Deployments($httpClient);
@@ -57,7 +57,7 @@ class DeploymentsTest extends TestCase
         $httpClient
             ->expects($this->once())
             ->method('get')
-            ->with('api/v1/deployments/' . $deploymentId)
+            ->with('/api/v1/deployments/' . $deploymentId)
             ->willReturn($response);
 
         $deployments = new Deployments($httpClient);

@@ -17,7 +17,7 @@ func NewClient(httpTransport *http.Client) *Client {
 }
 
 func (c *Client) List() ([]Model, error) {
-	response, err := c.httpClient.Get("/models")
+	response, err := c.httpClient.Get("/api/v1/models")
 	if err != nil {
 		return nil, err
 	}

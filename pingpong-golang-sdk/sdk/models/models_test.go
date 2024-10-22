@@ -7,6 +7,10 @@ import (
 	"github.com/pingponglabs-backend/sdks/pingpong-golang-sdk/internal/http"
 )
 
+const (
+	BasePath = "https://api-qa.mediamagic.ai"
+)
+
 func TestCanGenerateAliasPath(t *testing.T) {
 	alias := "pingpongai/recommender"
 	path := generateAliasPath(alias)
@@ -16,7 +20,11 @@ func TestCanGenerateAliasPath(t *testing.T) {
 }
 
 func TestCanGetModelByAlias(t *testing.T) {
-	client := NewClient(http.New(os.Getenv("X_PINGPONG_KEY")))
+	url := os.Getenv("MM_HOST_URL")
+	if url == "" {
+		url = BasePath
+	}
+	client := NewClient(http.New(os.Getenv("X_PINGPONG_KEY"),url))
 	alias := "pingpongai/ai-image-scan"
 	model, err := client.GetByAlias(alias)
 	if err != nil {

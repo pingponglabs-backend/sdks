@@ -23,7 +23,7 @@ class ModelsTest extends TestCase
         $httpClient
             ->expects($this->once())
             ->method('get')
-            ->with('api/v1/models')
+            ->with('/api/v1/models')
             ->willReturn($response);
 
         $models = new Models($httpClient);
@@ -53,7 +53,7 @@ class ModelsTest extends TestCase
         $httpClient
             ->expects($this->once())
             ->method('get')
-            ->with('api/v1/models/' . $modelId)
+            ->with('/api/v1/models/' . $modelId)
             ->willReturn($response);
 
         $models = new Models($httpClient);

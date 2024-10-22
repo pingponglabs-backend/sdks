@@ -8,6 +8,10 @@ import (
 	"github.com/pingponglabs-backend/sdks/pingpong-golang-sdk/sdk/models"
 )
 
+const (
+	BasePath = "https://api-qa.mediamagic.ai"
+)
+
 type Client struct {
 	models      *models.Client
 	deployments *deployments.Client
@@ -15,6 +19,7 @@ type Client struct {
 
 type Options struct {
 	Key string
+	Url string
 }
 
 type Option func(*Options)
@@ -26,8 +31,14 @@ func WithKey(key string) Option {
 }
 
 func NewClient(opts ...Option) *Client {
+	url := os.Getenv("MM_HOST_URL")
+	if url == "" {
+		url = BasePath
+	}
+
 	defaultOptions := Options{
 		Key: os.Getenv("X_PINGPONG_KEY"),
+		Url: url,
 	}
 
 	for _, opt := range opts {
@@ -35,7 +46,7 @@ func NewClient(opts ...Option) *Client {
 	}
 
 	// Default http transport
-	httpTransport := http.New(defaultOptions.Key)
+	httpTransport := http.New(defaultOptions.Key, defaultOptions.Url)
 
 	// Clients
 	modelsClient := models.NewClient(httpTransport)

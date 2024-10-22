@@ -8,7 +8,7 @@ async function main() {
     model: "844218fa-c5d0-4cee-90ce-0b42d226ac8d",
     args: {
       input:
-        "https://cdn.mediamagic.dev/media/4427dfa9-5aeb-11ed-be7f-063c1f7ecf7a.jpg",
+        "https://cdn.mediamagic.dev/media/799f2adc-384e-11ed-8158-e679ed67c206.jpeg",
     },
     sync: true,
   });

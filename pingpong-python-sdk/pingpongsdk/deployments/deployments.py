@@ -7,12 +7,13 @@ from dataclasses import asdict
 
 COMPLETE = 'complete'
 FAILED = 'failed'
+ETA = 180
 
 class Deployments(Client):
 
-    def __init__(self, api_key: str, models) -> None:
+    def __init__(self, api_key: str,mm_url: str, models) -> None:
         self.models = models
-        super().__init__(api_key)
+        super().__init__(api_key,mm_url)
 
 
     def get_by_id(self, id: str) -> Deployment:
@@ -31,21 +32,19 @@ class Deployments(Client):
             model = self.models.get_by_id(deployment.model)
             id = model.id
             request = request_dto(id, deployment)
-            sync=deployment.sync
             deployment = super().post("/api/v1/deployments", request)
             response=dto(deployment)
             status=response.status
-            eta= response.job['eta']
-            if sync: 
-                while status!=COMPLETE and status!=FAILED and eta > 0:
-                    time.sleep(10)
-                    job=self.get_job(response.job_id)
-                    eta-=5
-                    status=job['status']
-                    response.status=status
-                    if 'logs' in job:
-                        response.logs=job['logs']
-                    response.job=job
+            eta = ETA
+            while status!=COMPLETE and status!=FAILED and eta > 0:
+                time.sleep(10)
+                job=self.get_job(response.job_id)
+                status=job['status']
+                eta -= 5
+                response.status=status
+                if 'logs' in job:
+                    response.logs=job['logs']
+                response.job=job
             return response
         except Exception as e:
             raise Exception('error creating deployment: %s' % e)

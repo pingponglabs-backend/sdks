@@ -12,8 +12,8 @@ interface DeploymentInputWithIndex extends DeploymentInput {
 class Deployments extends Client {
     private modelsClient: Models;
 
-    constructor(apiKey: string, modelClient: Models) {
-        super(apiKey);
+    constructor(apiKey: string, modelClient: Models,mmUrl: string) {
+        super(apiKey,mmUrl);
         this.modelsClient = modelClient;
     }
 
@@ -34,6 +34,9 @@ class Deployments extends Client {
             );
             if (actualResponse != undefined) {
                 let eta = (actualResponse.job.eta * 3) + 120;
+                if (!eta) {
+                    eta = 180
+                }
                 if (deployment.sync) {
                     while (actualResponse.status !== COMPLETE && actualResponse.status !== FAILED && eta > 0) {
                         await this.sleep(10 * 1000);
