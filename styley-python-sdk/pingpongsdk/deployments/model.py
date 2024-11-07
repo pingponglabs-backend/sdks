@@ -30,7 +30,7 @@ class CreateDeployment:
     model: str
     args: dict
     name: str
-    sync: bool
+    sync: bool = False
 
     def dict(self):
         return super().dict()

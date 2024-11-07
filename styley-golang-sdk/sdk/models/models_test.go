@@ -13,7 +13,7 @@ const (
 
 func TestCanGenerateAliasPath(t *testing.T) {
 	alias := "pingpongai/recommender"
-	path := generateAliasPath(alias)
+	path := generateNamePath(alias)
 	if path != "/models/alias/pingpongai/recommender" {
 		t.Fatal("path is incorrect")
 	}
@@ -24,9 +24,9 @@ func TestCanGetModelByAlias(t *testing.T) {
 	if url == "" {
 		url = BasePath
 	}
-	client := NewClient(http.New(os.Getenv("X_PINGPONG_KEY"),url))
+	client := NewClient(http.New(os.Getenv("X_PINGPONG_KEY"), url))
 	alias := "pingpongai/ai-image-scan"
-	model, err := client.GetByAlias(alias)
+	model, err := client.GetByName(alias)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -50,17 +50,12 @@ class Deployments(Client):
             raise Exception('error creating deployment: %s' % e)
 
 
-    def list(self, start: int, to: int) -> List[Deployment]:
+    def list(self) -> List[Deployment]:
         """
         list - list all of your deployments
         """
-        deployments = super().get("/api/v1/deployments", start, to)
-
-        result = []
-        for d in deployments:
-            result.append(dto(d))
-
-        return result
+        deployments = super().get("/api/v1/deployments")
+        return deployments
     
     def get_job(self, id:str) -> Job:
         """

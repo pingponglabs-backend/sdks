@@ -13,7 +13,7 @@ import (
 const (
 	COMPLETE = "complete"
 	FAILED   = "failed"
-	ETA      =  180
+	ETA      = 180
 )
 
 type Client struct {
@@ -28,13 +28,13 @@ func NewClient(httpClient *http.Client, modelsClient *models.Client) *Client {
 	}
 }
 
-func (c *Client) List() ([]Deployment, error) {
+func (c *Client) List() (*DeploymentsResponse, error) {
 	response, err := c.httpClient.Get("/api/v1/deployments")
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to list deployments")
 	}
 
-	var deployments []Deployment
+	var deployments *DeploymentsResponse
 	if err := json.Unmarshal(response, &deployments); err != nil {
 		return nil, errors.Wrap(err, "failed to unmarshal deployments")
 	}
@@ -43,7 +43,7 @@ func (c *Client) List() ([]Deployment, error) {
 }
 
 func (c *Client) Create(deployment CreateDeployment) (*Deployment, error) {
-	model, err := c.modelsClient.GetByID("/api/v1/models/" + deployment.Model)
+	model, err := c.modelsClient.GetByID(deployment.Model)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to get model by ModelID: "+deployment.Model)
 	}

@@ -38,13 +38,12 @@ class Models(Client):
         model = super().get("/api/v1/models/%s" % id)
         return dto(model)
 
-    def get_by_alias(self, alias: str):
+    def get_by_name(self, name: str):
         """
-        get_by_alias - get a model by alias
+        get_by_name - get a model by name
         """
         try:
-            org, model = alias.split("/")
-            path = "/api/v1/models/alias/%s/%s" % (org, model)
+            path = "/api/v1/models/name/%s" % name
             model = super().get(path)
             return dto(model)
         except Exception as e:

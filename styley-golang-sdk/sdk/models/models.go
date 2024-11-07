@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/pingponglabs-backend/sdks/pingpong-golang-sdk/internal/http"
 )
@@ -31,7 +32,7 @@ func (c *Client) List() ([]Model, error) {
 }
 
 func (c *Client) GetByID(id string) (*Model, error) {
-	response, err := c.httpClient.Get(id)
+	response, err := c.httpClient.Get(fmt.Sprintf("/api/v1/models/%v", id))
 	if err != nil {
 		return nil, err
 	}
@@ -44,8 +45,8 @@ func (c *Client) GetByID(id string) (*Model, error) {
 	return &model, nil
 }
 
-func (c *Client) GetByAlias(alias string) (*Model, error) {
-	path := generateAliasPath(alias)
+func (c *Client) GetByName(name string) (*Model, error) {
+	path := generateNamePath(name)
 	response, err := c.httpClient.Get(path)
 	if err != nil {
 		return nil, err
