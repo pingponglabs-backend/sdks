@@ -32,8 +32,25 @@ class Deployments
             throw new Exception('Job is empty');
         }
 
-        $job = new Job($j['files'], $j['credits_used']);
-        return new Deployment($response['name'], $response['model_id'], $job);
+        $job = new Job(
+            id: $j['id'] ?? '',
+            status: $j['status'] ?? '',
+            deploymentId: $j['deployment_id'] ?? '',
+            args: $j['args'] ?? [],
+            files: $j['files'] ?? [],
+            createdAt: $j['created_at'] ?? '',
+            creditsUsed: (float)($j['credits_used'] ?? 0),
+            eta: ($j['eta'] ?? 0) 
+        );
+
+        // Note: Ensure 'status' is passed as a string
+        return new Deployment(
+            $response['name'],          // Deployment name as string
+            $response['model_id'],      // Model ID as string
+            $response['status'],        // Deployment status as string
+            $job,                       // Job object
+            $response['job_id']         // Job ID as string
+        );
     }
 
     /**
@@ -50,10 +67,14 @@ class Deployments
                 $responseData['model_id'],
                 $responseData['status'],
                 new Job(
-                    $responseData['job']['files'],
-                    0,
-                    $responseData['job']['eta'],
-                    $responseData['job']['status']
+                    id: $responseData['job']['id'] ?? '',
+                    status: $responseData['job']['status'] ?? '',
+                    deploymentId: $responseData['job']['deployment_id'] ?? '',
+                    args: $responseData['job']['args'] ?? [],
+                    files: $responseData['job']['files'] ?? [],
+                    createdAt: $responseData['job']['created_at'] ?? '',
+                    creditsUsed: (float)($responseData['job']['credits_used'] ?? 0),
+                    eta: $responseData['job']['eta'] ?? 0 
                 ),
                 $responseData['job_id'],
             );
@@ -72,10 +93,10 @@ class Deployments
                 $jobData = $this->client->get("/api/v1/jobs/" . $jobId);
 
                 $job = new Job(
-                    $jobData['files'],
-                    $jobData['credits_used'],
-                    $jobData['eta'],
-                    $jobData['status']
+                    $jobData['files'] ?? null,
+                    $jobData['credits_used'] ?? 0,
+                    $jobData['eta'] ?? 0,
+                    $jobData['status'] ?? ""
                 );
 
                 $status = $jobData['status'];
@@ -98,14 +119,24 @@ class Deployments
     public function getById(string $id): Deployment
     {
         $response = $this->client->get('/api/v1/deployments/' . $id);
-
         return $this->deploymentFactory($response);
     }
 
     public function getJob(string $id): Job
     {
         $response = $this->client->get('/api/v1/jobs/' . $id);
-
-        return $this->$response;
-    }
+        
+        $job = new Job(
+            id: $response['id'] ?? '',
+            status: $response['status'] ?? '',
+            deploymentId: $response['deployment_id'] ?? '',
+            args: $response['args'] ?? [],
+            files: $response['files'] ?? [],
+            createdAt: $response['created_at'] ?? '',
+            creditsUsed: (float)($response['credits_used'] ?? 0),
+            eta: ($response['eta'] ?? 0) 
+        );
+    
+        return $job; 
+    }    
 }

@@ -13,14 +13,14 @@ let MM_BASE_URL = process.env['MM_BASE_URL'] || MM_URL;
 
 describe('Models', () => {
   it('can get model by alias', async () => {
-    const alias = 'pingpongai/ai-image-scan';
+    const name = 'Background Remover2';
     const modelsClient = new Models(X_PINGPONG_KEY,MM_BASE_URL);
-    const model = await modelsClient.getByAlias(alias);
+    const model = await modelsClient.getByName(name);
     if (model === undefined) {
       throw new Error('model is undefined');
     }
 
-    expect(model.alias === alias);
+    expect(model.name === name);
   });
 
   it('can list models', async () => {

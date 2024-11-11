@@ -3,10 +3,9 @@ import type { Model } from './model.js';
 
 class Models extends Client {
   
-  async getByAlias(alias: string): Promise<Model | undefined> {
-    const [org, name] = alias.split('/');
+  async getByName(name: string): Promise<Model | undefined> {
     try {
-      return this.get<Model>(`/api/v1/models/alias/${org}/${name}`);
+      return this.get<Model>(`/api/v1/models/name/${name}`);
     } catch (e) {
       if (e instanceof Error) {
         throw new Error(`failed to fetch model by alias: ${e.message}`);

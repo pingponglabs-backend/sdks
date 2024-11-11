@@ -16,20 +16,41 @@ class Models
         $this->client = $client;
     }
 
-    private function modelFactory($response): Model
+    private function modelFactory(array $data): Model
     {
-        return new Model($response['id'], $response['name'], $response['description'], $response['args']);
+        return new Model(
+            $data['id'],
+            $data['name'],
+            $data['description'],
+            $data['args']
+        );
     }
 
     /**
      * @throws Exception
      * @throws GuzzleException
      */
-    public function list(): Model
+    public function list(): array
     {
         $response = $this->client->get('/api/v1/models');
-
-        return $this->modelFactory($response);
+        if (is_array($response) && isset($response[0]) && is_array($response[0])) {
+            $models = [];
+            foreach ($response as $modelData) {
+                $missingFields = [];
+                foreach (['id', 'name', 'description', 'args'] as $field) {
+                    if (!isset($modelData[$field])) {
+                        $missingFields[] = $field;
+                    }
+                }
+                if (!empty($missingFields)) {
+                    echo "Skipping model due to missing fields: " . implode(', ', $missingFields) . "\n";
+                    continue;
+                }
+                $models[] = $this->modelFactory($modelData);
+            }
+            return $models;
+        }
+        throw new \UnexpectedValueException('Invalid response format: Expected an array of models');
     }
 
     /**
@@ -39,6 +60,11 @@ class Models
     {
         $response = $this->client->get('/api/v1/models/' . $id);
 
+        return $this->modelFactory($response);
+    }
+    public function getByName(string $name): Model
+    {
+        $response = $this->client->get('/api/v1/models/name/'.$name);
         return $this->modelFactory($response);
     }
 }

@@ -4,21 +4,33 @@ namespace PingPong\Deployments;
 
 class Job
 {
-    public array $files;
-    public int $creditsUsed;
-    public int $eta;
+    public string $id;
     public string $status;
+    public string $deploymentId;
+    public array $args;
+    public array $files;
+    public string $createdAt;
+    public float $creditsUsed;
+    public int $eta;
 
     public function __construct(
+        ?string $id = null,
+        ?string $status = null,
+        ?string $deploymentId = null,
+        ?array $args = null,
         ?array $files = null,
-        ?int $creditsUsed = null,
-        ?int $eta = null,
-        ?string $status = null
+        ?string $createdAt = null,
+        ?float $creditsUsed = null,
+        ?int $eta = null
     ) {
-        $this->files = $files ?? [];
-        $this->creditsUsed = $creditsUsed ?? 0;
-        $this->eta = $eta ?? 0;
+        $this->id = $id ?? '';
         $this->status = $status ?? '';
+        $this->deploymentId = $deploymentId ?? '';
+        $this->args = $args ?? [];
+        $this->files = $files ?? [];
+        $this->createdAt = $createdAt ?? '';
+        $this->creditsUsed = $creditsUsed ?? 0.0;
+        $this->eta = $eta ?? 0;
     }
 
     public function getFiles(): array
