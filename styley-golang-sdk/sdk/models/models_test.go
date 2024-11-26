@@ -88,7 +88,7 @@ func TestGetModelsById(t *testing.T) {
 		{
 			name:      "Error: UnAuthorized",
 			modelID:   "844218fa-c5d0-4cee-90ce-0b42d226ac8d",
-			expectErr: false,
+			expectErr: true,
 			apikey:    "9b7d9a38-5fad-11ef-ac07-30d042e69440",
 		},
 	}

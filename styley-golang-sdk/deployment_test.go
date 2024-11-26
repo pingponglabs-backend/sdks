@@ -19,7 +19,7 @@ func TestGetJob(t *testing.T) {
 			name:      "Success API response",
 			jobID:     "95f94401-0e02-47d6-9c7d-1b28418f11cc",
 			expectErr: false,
-			apikey:    "732f9fbb-438c-11ee-a621-7200d0d07471",
+			apikey:    "xxxx-xxx-xxxx-xxx",
 		},
 		{
 			name:      "Error: Invalid Job ID",
@@ -31,7 +31,7 @@ func TestGetJob(t *testing.T) {
 			name:      "Error: Unauthorized User",
 			jobID:     "95f94401-0e02-47d6-9c7d-1b28418f11cc",
 			expectErr: true,
-			apikey:    "89448b74-9084-11ef-9e00-30d042e69440",
+			apikey:    "xxxx-xxx-xxxx-xxx",
 		},
 	}
 
@@ -72,7 +72,7 @@ func TestCreateDeployment(t *testing.T) {
 				Sync:  true,
 			},
 			expectErr: false,
-			apikey:    "xxx-xxxx-xxx-xxxx",//Replace with the valid API key
+			apikey:    "xxxx-xxx-xxxx-xxx",//Replace with the valid API key
 		},
 		{
 			name: "Error: Missing Model ID",
@@ -84,7 +84,7 @@ func TestCreateDeployment(t *testing.T) {
 				Sync: true,
 			},
 			expectErr: true,
-			apikey:    "xxx-xxxx-xxx-xxxx",//Replace with valid API key
+			apikey:    "xxxx-xxx-xxxx-xxx",//Replace with valid API key
 		},
 		{
 			name: "Error: Invalid input args",
@@ -97,7 +97,7 @@ func TestCreateDeployment(t *testing.T) {
 				Sync:  true,
 			},
 			expectErr: true,
-			apikey:    "xxx-xxxx-xxx-xxxx",//Replace with valid API key
+			apikey:    "xxxx-xxx-xxxx-xxx",//Replace with valid API key
 		},
 		{
 			name: "Error: Unauthorized user",
@@ -141,7 +141,7 @@ func TestGetDeployment(t *testing.T) {
 		{
 			name:      "Success API response",
 			expectErr: false,
-			apikey:    "xxx-xxxx-xxx-xxxx",//Replace with valid APIkey
+			apikey:    "xxxx-xxx-xxxx-xxx",//Replace with valid APIkey
 		},
 		{
 			name:      "Error: Invalid API Key",
