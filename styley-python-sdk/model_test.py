@@ -4,10 +4,10 @@ from pingpongsdk import PingPong
 @pytest.mark.parametrize(
     "name, apikey, model_name, expect_err, expect_model",
     [
-        ("Success: Valid API Key and Model Name", "9b7d9a38-5fad-11ef-ac07-30d042e69440", "/Omni Zero", False, "Omni Zero"),
+        ("Success: Valid API Key and Model Name", "xxxx-xxx-xxxx-xxx", "/Omni Zero", False, "Omni Zero"),# Replace with valid APIKey
         ("Error: Missing API Key", "", "/Omni Zero", True, ""),
-        ("Error: Invalid API Key", "XXXXXXX", "/Omni Zero", True, ""),
-        ("Error: Model Not Found", "9b7d9a38-5fad-11ef-ac07-30d042e69440", "/NonExistentModel", True, ""),
+        ("Error: Invalid API Key", "xxxx-xxx-xxxx-xxx", "/Omni Zero", True, ""),
+        ("Error: Model Not Found", "xxxx-xxx-xxxx-xxx", "/NonExistentModel", True, ""),# Replace with valid APIKey
     ]
 )
 def test_get_model_by_name(name, apikey, model_name, expect_err, expect_model):
@@ -37,9 +37,9 @@ def test_get_model_by_name(name, apikey, model_name, expect_err, expect_model):
 @pytest.mark.parametrize(
     "name, model_id, apikey, expect_err, expect_model_id",
     [
-        ("Success: Valid API Key and Model ID", "844218fa-c5d0-4cee-90ce-0b42d226ac8d", "732f9fbb-438c-11ee-a621-7200d0d07471", False, "844218fa-c5d0-4cee-90ce-0b42d226ac8d"),
-        ("Error: Invalid Model ID", "invalid-id", "732f9fbb-438c-11ee-a621-7200d0d07471", True, ""),
-        ("Error: Unauthorized", "844218fa-c5d0-4cee-90ce-0b42d226ac8d", "9b7d9a38-5fad-11ef-ac07-30d042e69410", True, ""),
+        ("Success: Valid API Key and Model ID", "844218fa-c5d0-4cee-90ce-0b42d226ac8d", "xxxx-xxx-xxxx-xxx", False, "844218fa-c5d0-4cee-90ce-0b42d226ac8d"),# Replace with valid APIKey
+        ("Error: Invalid Model ID", "invalid-id", "xxxx-xxx-xxxx-xxx", True, ""),# Replace with valid APIKey
+        ("Error: Unauthorized", "844218fa-c5d0-4cee-90ce-0b42d226ac8d", "xxxx-xxx-xxxx-xxx", True, ""),
     ]
 )
 def test_get_model_by_id(name, model_id, apikey, expect_err, expect_model_id):
@@ -87,9 +87,9 @@ def test_get_model_by_id(name, model_id, apikey, expect_err, expect_model_id):
 @pytest.mark.parametrize(
     "name, apikey, expect_err, expect_models",
     [
-        ("success API response", "732f9fbb-438c-11ee-a621-7200d0d07471", False, 244),
+        ("success API response", "xxxx-xxx-xxxx-xxx", False, 244),# Replace with valid APIKey
         ("Error: Missing API Key", "", True, 0),
-        ("Error: Invalid API Key", "XXXXXXX", True, 0),
+        ("Error: Invalid API Key", "xxxx-xxx-xxxx-xxx", True, 0),
     ]
 )
 def test_models_list(name, apikey, expect_err, expect_models):

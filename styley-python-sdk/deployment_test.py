@@ -16,7 +16,7 @@ from pingpongsdk import PingPong
                 sync=True,
             ),
             False,
-            "xxxx-xxx-xxxx-xxx",
+            "xxxx-xxx-xxxx-xxx", # Replace with valid APIKey
         ),
         (
             "Error: Missing Model ID",
@@ -27,7 +27,7 @@ from pingpongsdk import PingPong
                 sync=True,
             ),
             True,
-            "xxxx-xxx-xxxx-xxx",
+            "xxxx-xxx-xxxx-xxx",# Replace with valid APIKey
         ),
         (
             "Error: Invalid input args",
@@ -38,7 +38,7 @@ from pingpongsdk import PingPong
                 sync=True,
             ),
             True,
-            "xxxx-xxx-xxxx-xxx",
+            "xxxx-xxx-xxxx-xxx",# Replace with valid APIKey
         ),
         (
             "Error: Unauthorized user",
@@ -77,7 +77,7 @@ def test_create_deployment(name, deployment_req, expect_err, apikey):
 @pytest.mark.parametrize(
     "name,expect_err,apikey",
     [
-        ("Success API response", False, "xxxx-xxx-xxxx-xxx"),
+        ("Success API response", False, "xxxx-xxx-xxxx-xxx"),# Replace with valid APIKey
         ("Error: Invalid API Key", True, "xxxx-xxx-xxxx-xxx"),
         ("Error: Missing API Key", True, ""),
     ],
@@ -123,9 +123,9 @@ def test_get_deployment(name, expect_err, apikey):
 @pytest.mark.parametrize(
     "name, job_id, expect_err, apikey",
     [
-        ("Success API response", "95f94401-0e02-47d6-9c7d-1b28418f11cc", False, "xxxx-xxx-xxxx-xxx"),
-        ("Error: Invalid Job ID", "invalid-job-id", True, "832f9fbb-438c-11ee-a621-7200d0d07471"),
-        ("Error: Unauthorized User", "95f94401-0e02-47d6-9c7d-1b28418f11cc", True, "89448b74-9084-11ef-9e00-30d042e69440"),
+        ("Success API response", "95f94401-0e02-47d6-9c7d-1b28418f11cc", False, "xxxx-xxx-xxxx-xxx"),# Replace with valid APIKey
+        ("Error: Invalid Job ID", "invalid-job-id", True, "xxxx-xxx-xxxx-xxx"),# Replace with valid APIKey
+        ("Error: Unauthorized User", "95f94401-0e02-47d6-9c7d-1b28418f11cc", True, "xxxx-xxx-xxxx-xxx"),
     ],
 )
 def test_get_job(name, job_id, expect_err, apikey):
