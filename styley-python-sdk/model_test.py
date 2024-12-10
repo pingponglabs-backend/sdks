@@ -15,7 +15,7 @@ def test_get_model_by_name(name, apikey, model_name, expect_err, expect_model):
     Test GetModelByName API call with various scenarios.
     """
     if not apikey:
-        with pytest.raises(ValueError, match="X_PINGPONG_KEY missing"):
+        with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
             PingPong(api_key=apikey)
         return
 
@@ -47,7 +47,7 @@ def test_get_model_by_id(name, model_id, apikey, expect_err, expect_model_id):
     Test GetModelByID API call with various scenarios.
     """
     if not apikey:
-        with pytest.raises(ValueError, match="X_PINGPONG_KEY missing"):
+        with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
             PingPong(api_key=apikey)
         return
     
@@ -97,7 +97,7 @@ def test_models_list(name, apikey, expect_err, expect_models):
     Test List Models API call with various scenarios.
     """
     if not apikey:
-        with pytest.raises(ValueError, match="X_PINGPONG_KEY missing"):
+        with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
             PingPong(api_key=apikey)
         return
 

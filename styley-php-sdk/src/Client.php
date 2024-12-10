@@ -21,7 +21,7 @@ class Client
     public function __construct(string $apiKey = "")
     {
         if ($apiKey === "") {
-            $apiKey = getenv('X_PINGPONG_KEY');
+            $apiKey = getenv('X_STYLEY_KEY');
         }
 
         $mmBaseUrl = getenv('MM_HOST_URL');

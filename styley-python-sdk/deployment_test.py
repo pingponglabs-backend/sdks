@@ -87,7 +87,7 @@ def test_get_deployment(name, expect_err, apikey):
     Test PingPong deployment listing with various scenarios.
     """
     if not apikey:
-        with pytest.raises(ValueError, match="X_PINGPONG_KEY missing"):
+        with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
             PingPong(api_key=apikey)
         return
 
@@ -133,7 +133,7 @@ def test_get_job(name, job_id, expect_err, apikey):
     Test PingPong GetJob API call with various scenarios.
     """
     if not apikey:
-        with pytest.raises(ValueError, match="X_PINGPONG_KEY missing"):
+        with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
             PingPong(api_key=apikey)
         return
 

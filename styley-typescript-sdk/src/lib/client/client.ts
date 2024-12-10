@@ -17,7 +17,7 @@ class Client {
   async get<T>(path: string): Promise<T | undefined> {
     try {
       if (this.apiKey == "") {
-        throw new Error("X_PINGPONG_KEY is missing");
+        throw new Error("X_STYLEY_KEY is missing");
       }
       if (this.mmUrl == "") {
         throw new Error("MM_BASE_URL is missing");
@@ -41,7 +41,7 @@ class Client {
 
   async post<I extends Record<string, unknown>, O>(path: string, body: I): Promise<O | undefined> {
     try {
-      if (this.apiKey === "") throw new Error("X_PINGPONG_KEY is missing");
+      if (this.apiKey === "") throw new Error("X_STYLEY_KEY is missing");
       if (this.mmUrl === "") throw new Error("MM_BASE_URL is missing");
   
       const response = await fetch(`${this.mmUrl}${path}`, {

@@ -20,7 +20,7 @@ class HttpClient
     {
 
         if ($apiKey === "") {
-            $apiKey = getenv('X_PINGPONG_KEY');
+            $apiKey = getenv('X_STYLEY_KEY');
         }
         $this->API_KEY = $apiKey;
         $this->BASE_URL = $mmBaseUrl;
@@ -55,7 +55,7 @@ class HttpClient
     {
         try {
             if ($this->API_KEY == "") {
-                throw new \Exception("X_PINGPONG_KEY missing");
+                throw new \Exception("X_STYLEY_KEY missing");
             }
             $response = $this->client->post($path, $this->postRequestOpts($body));
 
@@ -76,7 +76,7 @@ class HttpClient
     {
         try {
             if ($this->API_KEY == "") {
-                throw new \Exception("X_PINGPONG_KEY missing");
+                throw new \Exception("X_STYLEY_KEY missing");
             }
             $response = $this->client->get($path, $this->getRequestOpts());
 

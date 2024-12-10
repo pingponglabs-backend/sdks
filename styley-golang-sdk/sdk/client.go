@@ -37,7 +37,7 @@ func NewClient(opts ...Option) *Client {
 	}
 
 	defaultOptions := Options{
-		Key: os.Getenv("X_PINGPONG_KEY"),
+		Key: os.Getenv("X_STYLEY_KEY"),
 		Url: url,
 	}
 
