@@ -1,6 +1,6 @@
 <?php
 
-namespace PingPong\Models;
+namespace Styley\Models;
 
 class Model {
     public readonly string $id;

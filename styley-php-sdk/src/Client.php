@@ -1,10 +1,10 @@
 <?php
 
-namespace PingPong;
+namespace Styley;
 
-use PingPong\Deployments\Deployments;
-use PingPong\HttpClient\HttpClient;
-use PingPong\Models\Models;
+use Styley\Deployments\Deployments;
+use Styley\HttpClient\HttpClient;
+use Styley\Models\Models;
 
 require '../vendor/autoload.php';
 

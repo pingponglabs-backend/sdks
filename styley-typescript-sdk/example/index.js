@@ -1,9 +1,9 @@
-import { PingPong } from "../build/index.js";
+import { Styley } from "../build/index.js";
 
-const pingpong = new PingPong();
+const styley = new Styley();
 
 async function main() {
-  const deployment = await pingpong.deployments.create({
+  const deployment = await styley.deployments.create({
     name: "Background Removal",
     model: "844218fa-c5d0-4cee-90ce-0b42d226ac8d",
     args: {

@@ -14,7 +14,7 @@ if (!X_STYLEY_KEY) {
 }
 
 let MM_BASE_URL = process.env['MM_HOST_URL'] || MM_URL;
-class PingPong {
+class Styley {
     public readonly models: Models;
     public readonly deployments: Deployments;
 
@@ -24,4 +24,4 @@ class PingPong {
     }
 }
 
-export { PingPong };
+export { Styley };

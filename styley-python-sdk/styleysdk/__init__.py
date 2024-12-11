@@ -8,9 +8,9 @@ _MM_URL = "https://api-qa.mediamagic.ai"
 _API_KEY = os.getenv('X_STYLEY_KEY')
 _MM_BASE_URL = os.getenv('MM_HOST_URL', _MM_URL)
 
-class PingPong:
+class Styley:
     """
-    PingPong - is a vanity class, which simply
+    Styley - is a vanity class, which simply
     combined the underlying libraries into one
     object with the api configured for each etc.
     """

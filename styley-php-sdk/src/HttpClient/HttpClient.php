@@ -1,6 +1,6 @@
 <?php
 
-namespace PingPong\HttpClient;
+namespace Styley\HttpClient;
 
 use GuzzleHttp;
 use GuzzleHttp\Client;

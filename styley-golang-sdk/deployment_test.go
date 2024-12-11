@@ -3,9 +3,9 @@ package main
 import (
 	"testing"
 
-	"github.com/pingponglabs-backend/sdks/pingpong-golang-sdk/sdk"
-	"github.com/pingponglabs-backend/sdks/pingpong-golang-sdk/sdk/deployments"
 	"github.com/stretchr/testify/assert"
+	"github.com/styley-backend/sdks/styley-golang-sdk/sdk"
+	"github.com/styley-backend/sdks/styley-golang-sdk/sdk/deployments"
 )
 
 func TestGetJob(t *testing.T) {

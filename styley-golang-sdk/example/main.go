@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	client := sdk.NewClient(sdk.WithKey(os.Getenv("X_PINGPONG_KEY")))
+	client := sdk.NewClient(sdk.WithKey(os.Getenv("X_STYLEY_KEY")))
 
 	deployment, err := client.Deployments().Create(deployments.CreateDeployment{
 		Name: "Background Removal",

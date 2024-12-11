@@ -1,9 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use PingPong\Models\Models;
-use PingPong\Models\Model;
-use PingPong\HttpClient\HttpClient;
+use Styley\Models\Models;
+use Styley\Models\Model;
+use Styley\HttpClient\HttpClient;
 
 class ModelsTest extends TestCase
 {

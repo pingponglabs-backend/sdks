@@ -1,7 +1,7 @@
 import pytest
 
-from pingpongsdk.deployments.model import CreateDeployment
-from pingpongsdk import PingPong
+from styleysdk.deployments.model import CreateDeployment
+from styleysdk import Styley
 
 
 @pytest.mark.parametrize(
@@ -58,16 +58,16 @@ from pingpongsdk import PingPong
 
 def test_create_deployment(name, deployment_req, expect_err, apikey):
     """
-    Test PingPong deployment creation with various scenarios.
+    Test Styley deployment creation with various scenarios.
     """
    
-    pingpong = PingPong(api_key=apikey)
+    styley = Styley(api_key=apikey)
 
     if expect_err:
         with pytest.raises(Exception):
-            pingpong.deployments.create(deployment=deployment_req)
+            styley.deployments.create(deployment=deployment_req)
     else:
-        deployment = pingpong.deployments.create(deployment=deployment_req)
+        deployment = styley.deployments.create(deployment=deployment_req)
         
         assert deployment is not None, "Deployment response should not be None"
         assert deployment.job["status"] == "complete", "Deployment job status should be 'completed'"
@@ -84,21 +84,21 @@ def test_create_deployment(name, deployment_req, expect_err, apikey):
 )
 def test_get_deployment(name, expect_err, apikey):
     """
-    Test PingPong deployment listing with various scenarios.
+    Test Styley deployment listing with various scenarios.
     """
     if not apikey:
         with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
-            PingPong(api_key=apikey)
+            Styley(api_key=apikey)
         return
 
-    pingpong = PingPong(api_key=apikey)
+    styley = Styley(api_key=apikey)
 
     if expect_err:
-        response = pingpong.deployments.list()
+        response = styley.deployments.list()
 
         assert "error" in response, "Error response expected but not found"
     else:
-        response = pingpong.deployments.list()
+        response = styley.deployments.list()
         assert response is not None, "Response should not be None"
 
         assert response is not None, "Response should not be None"
@@ -113,7 +113,7 @@ def test_get_deployment(name, expect_err, apikey):
         assert "id" in first_deployment, "Deployment should contain 'id'"
         assert "name" in first_deployment, "Deployment should contain 'name'"
         assert "status" in first_deployment, "Deployment should contain 'status'"
-        deployments = pingpong.deployments.list()
+        deployments = styley.deployments.list()
         
 
         assert deployments is not None, "Deployments response should not be None"
@@ -130,18 +130,18 @@ def test_get_deployment(name, expect_err, apikey):
 )
 def test_get_job(name, job_id, expect_err, apikey):
     """
-    Test PingPong GetJob API call with various scenarios.
+    Test Styley GetJob API call with various scenarios.
     """
     if not apikey:
         with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
-            PingPong(api_key=apikey)
+            Styley(api_key=apikey)
         return
 
-    pingpong = PingPong(api_key=apikey)
+    styley = Styley(api_key=apikey)
 
     try:
 
-        job = pingpong.deployments.get_job(job_id)
+        job = styley.deployments.get_job(job_id)
 
 
         if expect_err:

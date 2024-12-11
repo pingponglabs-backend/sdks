@@ -1,11 +1,11 @@
 # PingPongAI TypeScript SDK
 
 ```javascript
-import { PingPong } from '@pingpongai/typescript-sdk';
+import { Styley } from '@pingpongai/typescript-sdk';
 
-const pingpong = new PingPong();
+const styley = new Styley();
 
-const deployment = await pingpong.deployments.create({
+const deployment = await styley.deployments.create({
   model: 'pingpongai/ai-image-scan',
   name: 'test',
   args: {

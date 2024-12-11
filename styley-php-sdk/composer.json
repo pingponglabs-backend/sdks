@@ -1,5 +1,5 @@
 {
-  "name": "pingpongai/pingpongai-php-sdk",
+  "name": "styley/styley-php-sdk",
   "description": "PHP SDK for the PingPong AI Platform",
   "minimum-stability": "stable",
   "license": "proprietary",
@@ -17,7 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PingPong\\": "src/"
+      "Styley\\": "src/"
     }
   }
 }
