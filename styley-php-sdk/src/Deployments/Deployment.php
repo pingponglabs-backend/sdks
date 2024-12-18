@@ -1,6 +1,6 @@
 <?php
 
-namespace PingPong\Deployments;
+namespace Styley\Deployments;
 
 class Deployment
 {

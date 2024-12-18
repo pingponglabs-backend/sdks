@@ -1,10 +1,10 @@
 <?php
 
-namespace PingPong\Deployments;
+namespace Styley\Deployments;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use PingPong\HttpClient\HttpClient;
+use Styley\HttpClient\HttpClient;
 
 require '../vendor/autoload.php';
 

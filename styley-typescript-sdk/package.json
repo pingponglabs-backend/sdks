@@ -1,7 +1,7 @@
 {
-  "name": "@pingpong_ai/typescript-sdk",
+  "name": "@styley/typescript-sdk",
   "version": "1.0.5-rc-2",
-  "description": "PingPong TypeScript SDK",
+  "description": "Styley TypeScript SDK",
   "keywords": [
     "typescript",
     "ai"

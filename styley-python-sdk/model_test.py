@@ -1,5 +1,5 @@
 import pytest
-from pingpongsdk import PingPong
+from styleysdk import Styley
 
 @pytest.mark.parametrize(
     "name, apikey, model_name, expect_err, expect_model",
@@ -16,15 +16,15 @@ def test_get_model_by_name(name, apikey, model_name, expect_err, expect_model):
     """
     if not apikey:
         with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
-            PingPong(api_key=apikey)
+            Styley(api_key=apikey)
         return
 
-    pingpong = PingPong(api_key=apikey)
+    styley = Styley(api_key=apikey)
 
     try:
-        model = pingpong.models.get_by_name(model_name)
+        model = styley.models.get_by_name(model_name)
     except AttributeError:
-        model = {"error": "'PingPong' object has no attribute 'get_by_name'"}
+        model = {"error": "'Styley' object has no attribute 'get_by_name'"}
     except Exception as e:
         model = {"error": str(e)}
 
@@ -48,15 +48,15 @@ def test_get_model_by_id(name, model_id, apikey, expect_err, expect_model_id):
     """
     if not apikey:
         with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
-            PingPong(api_key=apikey)
+            Styley(api_key=apikey)
         return
     
-    pingpong = PingPong(api_key=apikey)
+    styley = Styley(api_key=apikey)
 
     try:
-        model = pingpong.models.get_by_id(model_id)
+        model = styley.models.get_by_id(model_id)
     except AttributeError:
-        model = {"error": "'PingPong' object has no attribute 'get_by_id'"}
+        model = {"error": "'Styley' object has no attribute 'get_by_id'"}
     except Exception as e:
         model = {"error": str(e)}
 
@@ -98,13 +98,13 @@ def test_models_list(name, apikey, expect_err, expect_models):
     """
     if not apikey:
         with pytest.raises(ValueError, match="X_STYLEY_KEY missing"):
-            PingPong(api_key=apikey)
+            Styley(api_key=apikey)
         return
 
-    pingpong = PingPong(api_key=apikey)
+    styley = Styley(api_key=apikey)
 
     try:
-        models = pingpong.models.list()
+        models = styley.models.list()
     except Exception as e:
         models = []
         err = str(e)

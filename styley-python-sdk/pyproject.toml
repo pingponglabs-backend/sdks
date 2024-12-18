@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pingpongsdk"
+name = "styleysdk"
 version = "0.1.5"
 description = ""
 authors = ["Ewan Valentine <ewan.valentine89@gmail.com>"]

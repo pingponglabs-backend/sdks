@@ -1,8 +1,8 @@
 <?php
 
-namespace PingPong\Deployments;
+namespace Styley\Deployments;
 
-use \PingPong\HttpClient\Mappable;
+use \Styley\HttpClient\Mappable;
 
 
 class DeploymentInput implements Mappable

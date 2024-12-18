@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/pingponglabs-backend/sdks/pingpong-golang-sdk/internal/http"
-	"github.com/pingponglabs-backend/sdks/pingpong-golang-sdk/sdk/models"
+	"github.com/styley-backend/sdks/styley-golang-sdk/internal/http"
+	"github.com/styley-backend/sdks/styley-golang-sdk/sdk/models"
 	"github.com/pkg/errors"
 )
 

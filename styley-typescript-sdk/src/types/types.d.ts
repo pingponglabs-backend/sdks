@@ -1,3 +1,3 @@
-declare module 'pingpong-typescript-sdk' {
+declare module 'styley-typescript-sdk' {
 
 }

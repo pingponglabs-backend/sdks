@@ -2,10 +2,10 @@
 
 use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\TestCase;
-use PingPong\Deployments\Deployment;
-use PingPong\Deployments\Deployments;
-use PingPong\Deployments\DeploymentInput;
-use PingPong\HttpClient\HttpClient;
+use Styley\Deployments\Deployment;
+use Styley\Deployments\Deployments;
+use Styley\Deployments\DeploymentInput;
+use Styley\HttpClient\HttpClient;
 
 class DeploymentsTest extends TestCase
 {
